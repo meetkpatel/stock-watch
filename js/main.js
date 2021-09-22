@@ -4,7 +4,7 @@ var $seachBtn = document.querySelector('#seachBtn');
 var $tbody = document.querySelector('tbody');
 var $stockName = document.querySelector('.stock-name');
 var $stockCurrentPrice = document.querySelector('#stock-current-price');
-var $stockCurrentPriceSpan = document.querySelector('#stock-current-price-span');
+var $stockCurrentPrice2 = document.querySelector('#stock-current-price-2');
 var $todayHigh = document.querySelector('.today-high');
 var $todayLow = document.querySelector('.today-low');
 var $todayOpen = document.querySelector('.today-open');
@@ -85,22 +85,17 @@ function getSpecificStockAPI(specificStock) {
   xhr.open('GET', 'https://cloud.iexapis.com/stable/stock/' + specificStock + '/quote?token=sk_d5ca9aca3c0c446b93e9d5013e8d4a95');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    var $spanH3 = document.createElement('h3');
     $stockName.textContent = xhr.response.companyName;
     $PreviosClose.textContent = xhr.response.previousClose;
     var change = '' + xhr.response.change;
     $stockCurrentPrice.textContent = xhr.response.latestPrice;
-    $spanH3.textContent = xhr.response.change + ' (' + (parseFloat(xhr.response.changePercent) * 100).toFixed(2) + '%)';
-    // console.log($spanH3)
-    $stockCurrentPriceSpan.appendChild($spanH3);
-    $stockCurrentPrice.appendChild($stockCurrentPriceSpan);
+    $stockCurrentPrice2.textContent = xhr.response.change + ' (' + (parseFloat(xhr.response.changePercent) * 100).toFixed(2) + '%)';
     if (change[0] === '-') {
       $stockCurrentPrice.setAttribute('class', 'display-flex stock-price-red');
-      $spanH3.setAttribute('class', 'stock-price-red');
+      $stockCurrentPrice2.setAttribute('class', 'stock-price-red');
     } else {
       $stockCurrentPrice.setAttribute('class', 'display-flex stock-price-green');
-      $spanH3.setAttribute('class', 'stock-price-green');
-
+      $stockCurrentPrice2.setAttribute('class', 'stock-price-green');
     }
     getOpenCloseHigh(specificStock);
   });
