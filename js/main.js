@@ -4,6 +4,7 @@ var $seachBtn = document.querySelector('#seachBtn');
 var $tbody = document.querySelector('tbody');
 var $stockName = document.querySelector('.stock-name');
 var $stockCurrentPrice = document.querySelector('#stock-current-price');
+var $stockCurrentPriceSpan = document.querySelector('#stock-current-price-span');
 var $todayHigh = document.querySelector('.today-high');
 var $todayLow = document.querySelector('.today-low');
 var $todayOpen = document.querySelector('.today-open');
@@ -84,14 +85,22 @@ function getSpecificStockAPI(specificStock) {
   xhr.open('GET', 'https://cloud.iexapis.com/stable/stock/' + specificStock + '/quote?token=sk_d5ca9aca3c0c446b93e9d5013e8d4a95');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    $stockName.innerText = xhr.response.companyName;
-    $PreviosClose.innerText = xhr.response.previousClose;
+    var $spanH3 = document.createElement('h3');
+    $stockName.textContent = xhr.response.companyName;
+    $PreviosClose.textContent = xhr.response.previousClose;
     var change = '' + xhr.response.change;
-    $stockCurrentPrice.innerHTML = xhr.response.latestPrice + ' &nbsp&nbsp ' + xhr.response.change + ' (' + (parseFloat(xhr.response.changePercent) * 100).toFixed(2) + '%)';
+    $stockCurrentPrice.textContent = xhr.response.latestPrice;
+    $spanH3.textContent = xhr.response.change + ' (' + (parseFloat(xhr.response.changePercent) * 100).toFixed(2) + '%)';
+    // console.log($spanH3)
+    $stockCurrentPriceSpan.appendChild($spanH3);
+    $stockCurrentPrice.appendChild($stockCurrentPriceSpan);
     if (change[0] === '-') {
-      $stockCurrentPrice.setAttribute('class', 'stock-price-red');
+      $stockCurrentPrice.setAttribute('class', 'display-flex stock-price-red');
+      $spanH3.setAttribute('class', 'stock-price-red');
     } else {
-      $stockCurrentPrice.setAttribute('class', 'stock-price-green');
+      $stockCurrentPrice.setAttribute('class', 'display-flex stock-price-green');
+      $spanH3.setAttribute('class', 'stock-price-green');
+
     }
     getOpenCloseHigh(specificStock);
   });
@@ -115,9 +124,9 @@ function getOpenCloseHigh(specificStock) {
       stockOpen.push(xhr.response[i].open);
       stockClose.push(xhr.response[i].close);
     }
-    $todayHigh.innerText = _.max(stockHigh);
-    $todayLow.innerText = _.min(stockLow);
-    $todayOpen.innerText = stockOpen[0];
+    $todayHigh.textContent = _.max(stockHigh);
+    $todayLow.textContent = _.min(stockLow);
+    $todayOpen.textContent = stockOpen[0];
   });
   xhr.send();
 }

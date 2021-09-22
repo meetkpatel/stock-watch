@@ -131,12 +131,21 @@ h1 {
   color: rgb(206, 62, 62);
 }
 
+.display-flex {
+  display: flex;
+}
+
 .stock-name {
   margin-bottom: 0;
 }
 
 .button-space {
   padding: 1rem 0;
+}
+
+#stock-current-price-span {
+  margin-left: 1.5rem;
+  font-size: 16px;
 }
 
 .h3-margin-top-bottom h3 {
