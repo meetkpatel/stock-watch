@@ -1,0 +1,177 @@
+.align-content-space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header {
+  background-color: #ee6e73;
+  color: white;
+  align-items: center;
+}
+
+.font-family-proza {
+  font-family: 'Proza', sans-serif;
+}
+
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.margin-right-30px {
+  margin-right: 30px;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.height500px {
+  height: 500px;
+}
+
+#close {
+  font-size: 26px;
+  color: red;
+}
+
+#searchBar {
+  font-size: 18px;
+  margin-top: 3rem;
+  width: 60%;
+  height: 3rem;
+  border: 1px solid grey;
+  border-right: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.align-content-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.testBox {
+  width: 100%;
+  background-color: aquamarine;
+  height: 200px;
+}
+
+#seachBtn {
+  margin-top: 3rem;
+  height: 3rem;
+  float: left;
+  width: 7%;
+  padding: 10px;
+  background: #ee6e73;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+tr {
+  height: 3rem;
+}
+
+td {
+  font-size: 1.5rem;
+  border-right: none;
+  padding-left: 1rem;
+  font-family: sans-serif;
+}
+
+tr:nth-child(odd) {
+  background-color: rgba(238, 110, 115, 0.1);
+}
+
+.width-90 {
+  width: 90%;
+}
+
+.width-10 {
+  width: 10%;
+}
+
+.font-san-serif {
+  font-family: sans-serif;
+}
+
+h1 {
+  color: rgb(54, 54, 54);
+}
+
+.stock-price-green {
+  margin-top: 0;
+  color: rgb(10, 158, 10);
+}
+
+.stock-price-red {
+  margin-top: 0;
+  color: rgb(206, 62, 62);
+}
+
+.display-flex {
+  display: flex;
+}
+
+.stock-name {
+  margin-bottom: 0;
+}
+
+#stock-current-price-2 {
+  margin-left: 1.5rem;
+}
+
+.button-space {
+  padding: 1rem 0;
+}
+
+#stock-current-price-span {
+  margin-left: 1.5rem;
+  font-size: 16px;
+}
+
+.h3-margin-top-bottom h3 {
+  margin: 0.3rem 0;
+}
+
+#watchListBtn {
+  height: 2rem;
+  width: 10rem;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 1rem;
+}
+
+#portfolioBtn {
+  height: 2rem;
+  width: 10rem;
+  background-color: #28a745;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 1rem;
+}

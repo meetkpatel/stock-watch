@@ -5,15 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AJAX Project</title>
   <link rel="icon" href="images/favicon.ico">
+  <link rel="stylesheet" crossorigin="anonymous"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>
+  <header class="font-family-proza">
+    <div class="container navBar">
+      <div class="row">
+        <div class="margin-right-30px align-content-center">
+          <h2 class="font-family-proza">Stock Watch</h2>
+        </div>
+      </div>
+    </div>
   </header>
   <main>
+    <div class="container">
+
+      <div class="row align-content-center">
+        <input type="text" id="searchBar" placeholder="Search Stock">
+        <button id="seachBtn" type="submit"><i class="fa fa-search"></i></button>
+      </div>
+      <div class="row align-content-center">
+        <div class="view" data-view="home-view">
+          <p>No stock search yet</p>
+        </div>
+      </div>
+      <div class="view" data-view="search-view">
+        <div class="row align-content-center">
+          <h1 class="font-san-serif">Search Result</h1>
+        </div>
+        <div class="row">
+          <table>
+            <tbody class="displayTable">
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="view" data-view="stock-view">
+        <div class="row">
+          <div class="column-full align-content-space-between">
+            <h2 class="stock-name"></h2>
+            <i id="close" class="fa fa-times"></i>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column-full display-flex">
+            <h3 id="stock-current-price"></h3>
+            <h3 id="stock-current-price-2"></h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column-half ">
+            <div  class="align-content-space-between h3-margin-top-bottom">
+              <h3>Today's High</h3>
+              <h3 class="today-high"></h3>
+            </div>
+            <div  class="align-content-space-between h3-margin-top-bottom">
+              <h3>Today's Low</h3>
+              <h3 class="today-low"></h3>
+            </div>
+            <div  class="align-content-space-between h3-margin-top-bottom">
+              <h3>Today's Open</h3>
+              <h3 class="today-open"></h3>
+            </div>
+            <div class="align-content-space-between h3-margin-top-bottom">
+              <h3>Previos Close</h3>
+              <h3 class="previos-close"></h3>
+            </div>
+          </div>
+          <div class="column-half">
+            <div class="align-content-center width-100 button-space">
+              <button id="watchListBtn">Add to Watchlist</button>
+            </div>
+            <div class="align-content-center width-100 button-space">
+              <button id="portfolioBtn">Add to Portfolio</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.js"></script>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
