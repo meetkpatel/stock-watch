@@ -175,3 +175,27 @@ h1 {
   color: white;
   font-size: 1rem;
 }
+
+.backgroud-color {
+  background-color: lightgray;
+}
+
+.padding-top {
+  padding-top: 1.5rem;
+}
+
+.padding-bottom {
+  padding-bottom: 3rem;
+}
+
+.padding-left {
+  padding-left: 4.5rem;
+}
+
+.padding-right {
+  padding-right: 6rem;
+}
+
+.margin-right {
+  margin-right: 2rem;
+}
