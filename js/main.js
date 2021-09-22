@@ -1,4 +1,5 @@
 /* global _ */
+/* global Plotly */
 var $seachBar = document.querySelector('#searchBar');
 var $seachBtn = document.querySelector('#seachBtn');
 var $tbody = document.querySelector('tbody');
@@ -122,6 +123,19 @@ function getOpenCloseHigh(specificStock) {
     $todayHigh.textContent = _.max(stockHigh);
     $todayLow.textContent = _.min(stockLow);
     $todayOpen.textContent = stockOpen[0];
+    var data1 = [
+      {
+        x: stockDateTime,
+        y: stockClose,
+        type: 'scatter'
+      }
+    ];
+    var layout = {
+      title: $stockName.textContent,
+      font: { size: 14 },
+      padding: 0
+    };
+    Plotly.newPlot('graphPlot', data1, layout, { responsive: true });
   });
   xhr.send();
 }

@@ -23,7 +23,7 @@
     </div>
   </header>
   <main>
-    <div class="container">
+    <div class="container ">
 
       <div class="row align-content-center">
         <input type="text" id="searchBar" placeholder="Search Stock">
@@ -49,7 +49,7 @@
         <div class="row">
           <div class="column-full align-content-space-between">
             <h2 class="stock-name"></h2>
-            <i id="close" class="fa fa-times"></i>
+            <i id="close" class="fa fa-times margin-right"></i>
           </div>
         </div>
         <div class="row">
@@ -59,7 +59,14 @@
           </div>
         </div>
         <div class="row">
-          <div class="column-half ">
+          <div class="column-half padding-bottom">
+            <div id="graphPlot" style="width: 100%; height: 380px;">
+              <!-- Plotly chart will be drawn inside this DIV -->
+            </div>
+          </div>
+        <!-- </div>
+        <div class="row"> -->
+          <div class="column-half padding-top">
             <div  class="align-content-space-between h3-margin-top-bottom">
               <h3>Today's High</h3>
               <h3 class="today-high"></h3>
@@ -76,8 +83,8 @@
               <h3>Previos Close</h3>
               <h3 class="previos-close"></h3>
             </div>
-          </div>
-          <div class="column-half">
+          <!-- </div>
+          <div class="column-half"> -->
             <div class="align-content-center width-100 button-space">
               <button id="watchListBtn">Add to Watchlist</button>
             </div>
@@ -89,7 +96,9 @@
       </div>
     </div>
   </main>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
