@@ -74,6 +74,7 @@ li {
   height: 3rem;
   float: left;
   width: 7%;
+  min-width: 40px;
   padding: 10px;
   background: #ee6e73;
   color: white;
@@ -176,6 +177,21 @@ h1 {
   font-size: 1rem;
 }
 
+#deleteBtn {
+  height: 2rem;
+  width: 10rem;
+  background-color: #d44545;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 1rem;
+}
+
+.homeBtn,
+.watchlistBtn:hover {
+  cursor: pointer;
+}
+
 .backgroud-color {
   background-color: lightgray;
 }
@@ -198,4 +214,40 @@ h1 {
 
 .margin-right {
   margin-right: 2rem;
+}
+
+.justify-center {
+  align-content: center;
+}
+
+.displayWatchListTable tr td {
+  /* font-size: 1.2rem; */
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.watchlistNameTd h4 {
+  display: inline-block;
+}
+
+.displayWatchListTable tr td h4 {
+  font-size: 1.2rem;
+  margin: 0.5rem;
+}
+
+.watchlistNameTd {
+  width: 70%;
+}
+
+.watchlistPriceTd {
+  min-width: 220px;
+  width: 30%;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.watchlistNameTd h4:hover {
+  cursor: pointer;
 }

@@ -17,17 +17,21 @@
     <div class="container navBar">
       <div class="row">
         <div class="margin-right-30px align-content-center">
-          <h2 class="font-family-proza">Stock Watch</h2>
+          <h2 class="homeBtn font-family-proza">Stock Watch</h2>
+        </div>
+        <div class="align-content-center">
+          <h3 class="watchlistNavBtn">Watchlist</h3>
         </div>
       </div>
     </div>
   </header>
   <main>
     <div class="container ">
-
-      <div class="row align-content-center">
-        <input type="text" id="searchBar" placeholder="Search Stock">
-        <button id="seachBtn" type="submit"><i class="fa fa-search"></i></button>
+      <div class="searchSeaction">
+        <div class="row align-content-center">
+          <input type="text" id="searchBar" placeholder="Search Stock">
+          <button id="seachBtn" type="submit"><i class="fa fa-search"></i></button>
+        </div>
       </div>
       <div class="row align-content-center">
         <div class="view" data-view="home-view">
@@ -64,8 +68,6 @@
               <!-- Plotly chart will be drawn inside this DIV -->
             </div>
           </div>
-        <!-- </div>
-        <div class="row"> -->
           <div class="column-half padding-top">
             <div  class="align-content-space-between h3-margin-top-bottom">
               <h3>Today's High</h3>
@@ -83,15 +85,27 @@
               <h3>Previos Close</h3>
               <h3 class="previos-close"></h3>
             </div>
-          <!-- </div>
-          <div class="column-half"> -->
             <div class="align-content-center width-100 button-space">
               <button id="watchListBtn">Add to Watchlist</button>
             </div>
             <div class="align-content-center width-100 button-space">
               <button id="portfolioBtn">Add to Portfolio</button>
             </div>
+            <div class="align-content-center width-100 button-space">
+              <button id="deleteBtn">Delete</button>
+            </div>
           </div>
+        </div>
+      </div>
+      <div class="view" data-view="watchlist-view">
+        <div class="row align-content-center">
+          <h1>Watchlist</h1>
+        </div>
+        <div class="row">
+          <table>
+            <tbody class="displayWatchListTable">
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

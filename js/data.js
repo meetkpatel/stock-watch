@@ -1,7 +1,20 @@
 /* exported data */
 var data = {
   view: 'home-view',
-  entries: [],
-  editing: null,
-  nextEntryId: 1
+  watchlistEntries: [],
+  currentStock: null,
+  isWatchlist: false,
+  isPortfolio: false
 };
+// console.log(data);
+var previousData = localStorage.getItem('ajax-project');
+if (previousData !== null) {
+  data = JSON.parse(previousData);
+}
+
+function beforeunloadFunction(event) {
+  var jsonEntries = JSON.stringify(data);
+  localStorage.setItem('ajax-project', jsonEntries);
+}
+
+window.addEventListener('beforeunload', beforeunloadFunction);

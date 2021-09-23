@@ -4,6 +4,7 @@ var $seachBar = document.querySelector('#searchBar');
 var $seachBtn = document.querySelector('#seachBtn');
 var $tbody = document.querySelector('tbody');
 var $stockName = document.querySelector('.stock-name');
+// var stockSymbol = '';
 var $stockCurrentPrice = document.querySelector('#stock-current-price');
 var $stockCurrentPrice2 = document.querySelector('#stock-current-price-2');
 var $todayHigh = document.querySelector('.today-high');
@@ -11,8 +12,15 @@ var $todayLow = document.querySelector('.today-low');
 var $todayOpen = document.querySelector('.today-open');
 var $PreviosClose = document.querySelector('.previos-close');
 var $displayTable = document.querySelector('.displayTable');
+var $displayWatchListTable = document.querySelector('.displayWatchListTable');
 var $view = document.querySelectorAll('.view');
 var $close = document.querySelector('#close');
+var $watchlistNavBtn = document.querySelector('.watchlistNavBtn');
+var $homeBtn = document.querySelector('.homeBtn');
+var $searchSeaction = document.querySelector('.searchSeaction');
+var $watchListBtn = document.querySelector('#watchListBtn');
+var $deleteBtn = document.querySelector('#deleteBtn');
+
 var searchListSymbol = [];
 var searchListName = [];
 var stockHigh = [];
@@ -22,7 +30,40 @@ var stockClose = [];
 var stockDateTime = [];
 $seachBtn.addEventListener('click', seachStock);
 $displayTable.addEventListener('click', displayTableClick);
+$displayWatchListTable.addEventListener('click', displayWatchListTableClick);
 $close.addEventListener('click', closeSpecificStock);
+$watchlistNavBtn.addEventListener('click', watchlistNavBtnClick);
+$homeBtn.addEventListener('click', homeBtnClick);
+$watchListBtn.addEventListener('click', watchListBtn);
+
+function displayWatchListTableClick(event) {
+  if (event.target.getAttribute('watchlist-symbol') === null) {
+    return;
+  }
+  data.isPortfolio = true;
+}
+
+function watchListBtn(event) {
+  if (data.watchlistEntries.indexOf(data.currentStock) === -1) {
+    data.watchlistEntries.push(data.currentStock);
+  }
+  generateWatchlist();
+  switchView('watchlist-view');
+}
+
+function watchlistNavBtnClick(event) {
+  data.currentStock = null;
+  data.isPortfolio = false;
+  data.isWatchlist = true;
+  // generateWatchlist();
+  switchView('watchlist-view');
+}
+function homeBtnClick(event) {
+  data.currentStock = null;
+  data.isPortfolio = false;
+  data.isWatchlist = false;
+  switchView('home-view');
+}
 
 function closeSpecificStock() {
   $seachBar.value = '';
@@ -32,13 +73,62 @@ function seachStock(event) {
   seachStockAPI($seachBar.value);
   switchView('search-view');
 }
+function generateWatchlist() {
+  var $trNodes = document.querySelectorAll('tr');
+  for (var j = 0; j < $trNodes.length; j++) {
+    $trNodes[j].remove();
+  }
+  for (var i = 0; i < data.watchlistEntries.length; i++) {
+    watchListgenerate(data.watchlistEntries[i]);
+  }
+}
 
+function watchListgenerate(stockfetch) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://cloud.iexapis.com/stable/stock/' + stockfetch + '/quote?token=sk_d5ca9aca3c0c446b93e9d5013e8d4a95');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    var $watchListTr = document.createElement('tr');
+    var $watchListTdName = document.createElement('td');
+    var $watchListTdPrice = document.createElement('td');
+    var $watchListDiv = document.createElement('div');
+    var $watchListH4Name = document.createElement('h4');
+    var $watchListH4Price = document.createElement('h4');
+    var $watchListH4Change = document.createElement('h4');
+
+    $watchListTdName.setAttribute('class', 'watchlistNameTd');
+    $watchListTdPrice.setAttribute('class', 'watchlistPriceTd');
+    $watchListDiv.setAttribute('class', 'textCenter');
+    $watchListH4Name.setAttribute('watchlist-symbol', stockfetch);
+
+    $watchListTr.appendChild($watchListTdName);
+    $watchListTdName.appendChild($watchListH4Name);
+    $watchListTr.appendChild($watchListTdPrice);
+    $watchListTdPrice.appendChild($watchListDiv);
+    $watchListDiv.appendChild($watchListH4Price);
+    $watchListDiv.appendChild($watchListH4Change);
+
+    $watchListH4Name.textContent = xhr.response.companyName;
+    $watchListH4Price.textContent = xhr.response.latestPrice;
+    $watchListH4Change.textContent = xhr.response.change + ' (' + (parseFloat(xhr.response.changePercent) * 100).toFixed(2) + '%)';
+    var change = '' + xhr.response.change;
+    if (change[0] === '-') {
+      $watchListH4Price.setAttribute('class', 'stock-price-red');
+      $watchListH4Change.setAttribute('class', 'stock-price-red');
+    } else {
+      $watchListH4Price.setAttribute('class', 'stock-price-green');
+      $watchListH4Change.setAttribute('class', 'stock-price-green');
+    }
+    $displayWatchListTable.append($watchListTr);
+  });
+  xhr.send();
+}
 function displayTableClick(event) {
   if (!event.target.matches('I')) {
     return;
   }
-
-  getSpecificStockAPI(event.target.getAttribute('stock-symbol'));
+  data.currentStock = event.target.getAttribute('stock-symbol');
+  // getSpecificStockAPI(event.target.getAttribute('stock-symbol'));
   switchView('stock-view');
 }
 
@@ -82,6 +172,7 @@ function showList() {
 }
 
 function getSpecificStockAPI(specificStock) {
+  // stockSymbol = specificStock;
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://cloud.iexapis.com/stable/stock/' + specificStock + '/quote?token=sk_d5ca9aca3c0c446b93e9d5013e8d4a95');
   xhr.responseType = 'json';
@@ -147,6 +238,19 @@ function switchView(view) {
     } else {
       $view[i].className = 'view hidden';
     }
+  }
+  if (data.view === 'home-view' || data.view === 'search-view' || data.view === 'stock-view') {
+    $searchSeaction.className = 'searchSeaction';
+  } else {
+    $searchSeaction.className = 'searchSeaction hidden';
+  }
+  if (data.currentStock !== null && data.isPortfolio === false && data.isPortfolio === false) {
+    $deleteBtn.className = 'hidden';
+    $watchListBtn.className = 'show';
+    getSpecificStockAPI(data.currentStock);
+  }
+  if (data.view === 'watchlist-view' && data.isWatchlist === true) {
+    generateWatchlist();
   }
 }
 switchView(data.view);
