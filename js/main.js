@@ -40,7 +40,8 @@ function displayWatchListTableClick(event) {
   if (event.target.getAttribute('watchlist-symbol') === null) {
     return;
   }
-  data.isPortfolio = true;
+  data.currentStock = event.target.getAttribute('watchlist-symbol');
+  switchView('stock-view');
 }
 
 function watchListBtn(event) {
@@ -250,6 +251,11 @@ function switchView(view) {
     getSpecificStockAPI(data.currentStock);
   }
   if (data.view === 'watchlist-view' && data.isWatchlist === true) {
+    generateWatchlist();
+  }
+  if (data.view === 'stock-view' && data.isWatchlist === true) {
+    $deleteBtn.className = 'show';
+    $watchListBtn.className = 'hidden';
     generateWatchlist();
   }
 }
