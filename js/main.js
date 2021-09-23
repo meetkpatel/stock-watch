@@ -4,7 +4,6 @@ var $seachBar = document.querySelector('#searchBar');
 var $seachBtn = document.querySelector('#seachBtn');
 var $tbody = document.querySelector('tbody');
 var $stockName = document.querySelector('.stock-name');
-// var stockSymbol = '';
 var $stockCurrentPrice = document.querySelector('#stock-current-price');
 var $stockCurrentPrice2 = document.querySelector('#stock-current-price-2');
 var $todayHigh = document.querySelector('.today-high');
@@ -20,6 +19,9 @@ var $homeBtn = document.querySelector('.homeBtn');
 var $searchSeaction = document.querySelector('.searchSeaction');
 var $watchListBtn = document.querySelector('#watchListBtn');
 var $deleteBtn = document.querySelector('#deleteBtn');
+var $cancelationPage = document.querySelector('.cancelationPage');
+var $deleteBtnConfirm = document.querySelector('.deleteBtnConfirm');
+var $cancelBtnModal = document.querySelector('.cancelBtnModal');
 
 var searchListSymbol = [];
 var searchListName = [];
@@ -34,7 +36,28 @@ $displayWatchListTable.addEventListener('click', displayWatchListTableClick);
 $close.addEventListener('click', closeSpecificStock);
 $watchlistNavBtn.addEventListener('click', watchlistNavBtnClick);
 $homeBtn.addEventListener('click', homeBtnClick);
-$watchListBtn.addEventListener('click', watchListBtn);
+$watchListBtn.addEventListener('click', watchListBtnClick);
+$deleteBtn.addEventListener('click', deleteBtnClick);
+$deleteBtnConfirm.addEventListener('click', deleteBtnConfirmClick);
+$cancelBtnModal.addEventListener('click', cancelBtnModalClick);
+
+function deleteBtnClick() {
+  $cancelationPage.className = 'cancelationPage';
+}
+function cancelBtnModalClick() {
+  $cancelationPage.className = 'cancelationPage hidden';
+}
+function deleteBtnConfirmClick() {
+  if (data.isWatchlist === true) {
+    $cancelationPage.className = 'cancelationPage hidden';
+    data.watchlistEntries.splice(data.watchlistEntries.indexOf(data.currentStock), 1);
+    data.currentStock = null;
+    data.isPortfolio = false;
+    data.isWatchlist = true;
+    switchView('watchlist-view');
+  }
+
+}
 
 function displayWatchListTableClick(event) {
   if (event.target.getAttribute('watchlist-symbol') === null) {
@@ -44,22 +67,25 @@ function displayWatchListTableClick(event) {
   switchView('stock-view');
 }
 
-function watchListBtn(event) {
+function watchListBtnClick(event) {
   if (data.watchlistEntries.indexOf(data.currentStock) === -1) {
     data.watchlistEntries.push(data.currentStock);
   }
-  generateWatchlist();
+  data.currentStock = null;
+  data.isPortfolio = false;
+  data.isWatchlist = true;
   switchView('watchlist-view');
 }
 
 function watchlistNavBtnClick(event) {
+  $seachBar.value = '';
   data.currentStock = null;
   data.isPortfolio = false;
   data.isWatchlist = true;
-  // generateWatchlist();
   switchView('watchlist-view');
 }
 function homeBtnClick(event) {
+  $seachBar.value = '';
   data.currentStock = null;
   data.isPortfolio = false;
   data.isWatchlist = false;
@@ -71,6 +97,8 @@ function closeSpecificStock() {
   switchView('home-view');
 }
 function seachStock(event) {
+  data.isPortfolio = false;
+  data.isWatchlist = false;
   seachStockAPI($seachBar.value);
   switchView('search-view');
 }
@@ -129,7 +157,6 @@ function displayTableClick(event) {
     return;
   }
   data.currentStock = event.target.getAttribute('stock-symbol');
-  // getSpecificStockAPI(event.target.getAttribute('stock-symbol'));
   switchView('stock-view');
 }
 
