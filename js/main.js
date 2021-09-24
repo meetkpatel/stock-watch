@@ -19,8 +19,10 @@ var $portfolioNavBtn = document.querySelector('.portfolioNavBtn');
 var $homeBtn = document.querySelector('.homeBtn');
 var $searchSeaction = document.querySelector('.searchSeaction');
 var $cancelationPage = document.querySelector('.cancelationPage');
+var $stockAlreadyAlert = document.querySelector('.stockAlreadyAlert');
 var $deleteBtnConfirm = document.querySelector('.deleteBtnConfirm');
 var $cancelBtnModal = document.querySelector('.cancelBtnModal');
+var $closeAlertBtnModal = document.querySelector('.closeAlertBtnModal');
 var $container = document.querySelector('.main-container');
 
 var searchListSymbol = [];
@@ -44,6 +46,7 @@ $portfolioNavBtn.addEventListener('click', portfolioNavBtnClick);
 $homeBtn.addEventListener('click', homeBtnClick);
 $deleteBtnConfirm.addEventListener('click', deleteBtnConfirmClick);
 $cancelBtnModal.addEventListener('click', cancelBtnModalClick);
+$closeAlertBtnModal.addEventListener('click', closeAlertBtnModalClick);
 
 function deleteBtnClick() {
   $cancelationPage.className = 'cancelationPage';
@@ -59,13 +62,16 @@ function deleteBtnConfirmClick() {
     data.currentStock = null;
     switchView('watchlist-view');
   }
-
+}
+function closeAlertBtnModalClick() {
+  $stockAlreadyAlert.className = 'stockAlreadyAlert hidden';
 }
 
 function portfolioAddBtnClick(event) {
   event.preventDefault();
   for (var i = 0; i < data.portfolioEntries.length; i++) {
     if (data.portfolioEntries[i].stockName === data.currentStock) {
+      $stockAlreadyAlert.className = 'stockAlreadyAlert';
       return;
     }
   }
@@ -93,7 +99,7 @@ function watchListBtnClick(event) {
 function portfolioBtnClick(event) {
   for (var i = 0; i < data.portfolioEntries.length; i++) {
     if (data.portfolioEntries[i].stockName === data.currentStock) {
-      alert('stocks is already in portfolio');
+      $stockAlreadyAlert.className = 'stockAlreadyAlert';
       return;
     }
   }
