@@ -145,7 +145,7 @@ h1 {
 }
 
 .button-space {
-  padding: 1rem 0;
+  padding: 0.5rem 0;
 }
 
 #stock-current-price-span {
@@ -168,6 +168,7 @@ h1 {
 }
 
 #portfolioBtn {
+  text-align: center;
   height: 2rem;
   width: 10rem;
   background-color: #28a745;
@@ -298,4 +299,13 @@ h1 {
 .padding-right-left {
   padding-left: 5rem;
   padding-right: 5rem;
+}
+
+.watchlistNavBtn {
+  margin-right: 1.7rem;
+}
+
+.portfolio-input-width {
+  width: 70%;
+  height: 2rem;
 }

@@ -2,6 +2,7 @@
 var data = {
   view: 'home-view',
   watchlistEntries: [],
+  portfolioEntries: [],
   currentStock: null
 };
 // console.log(data);
