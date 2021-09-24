@@ -74,6 +74,7 @@ li {
   height: 3rem;
   float: left;
   width: 7%;
+  min-width: 40px;
   padding: 10px;
   background: #ee6e73;
   color: white;
@@ -176,6 +177,21 @@ h1 {
   font-size: 1rem;
 }
 
+#deleteBtn {
+  height: 2rem;
+  width: 10rem;
+  background-color: #d44545;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 1rem;
+}
+
+.homeBtn,
+.watchlistBtn:hover {
+  cursor: pointer;
+}
+
 .backgroud-color {
   background-color: lightgray;
 }
@@ -198,4 +214,88 @@ h1 {
 
 .margin-right {
   margin-right: 2rem;
+}
+
+.justify-center {
+  align-content: center;
+}
+
+.displayWatchListTable tr td {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.watchlistNameTd h4 {
+  display: inline-block;
+}
+
+.displayWatchListTable tr td h4 {
+  font-size: 1.2rem;
+  margin: 0.5rem;
+}
+
+.watchlistNameTd {
+  width: 70%;
+}
+
+.watchlistPriceTd {
+  min-width: 220px;
+  width: 30%;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.watchlistNameTd h4:hover {
+  cursor: pointer;
+}
+
+.cancelationPage {
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.fullScreen {
+  height: 100vh;
+}
+
+.cancelBox {
+  height: 150px;
+  width: 420px;
+  background-color: white;
+  border-radius: 5px;
+  border: none;
+  margin: auto;
+  text-align: center;
+}
+
+.margin-top-20px {
+  margin-top: 20px;
+}
+
+.cancelBtnModal {
+  background-color: rgb(167, 164, 164);
+  color: black;
+  height: 2rem;
+  width: 6rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.deleteBtnConfirm {
+  background-color: rgb(212, 24, 24);
+  color: white;
+  height: 2rem;
+  width: 6rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.padding-right-left {
+  padding-left: 5rem;
+  padding-right: 5rem;
 }
