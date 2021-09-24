@@ -2,9 +2,7 @@
 var data = {
   view: 'home-view',
   watchlistEntries: [],
-  currentStock: null,
-  isWatchlist: false,
-  isPortfolio: false
+  currentStock: null
 };
 // console.log(data);
 var previousData = localStorage.getItem('ajax-project');

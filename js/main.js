@@ -3,25 +3,24 @@
 var $seachBar = document.querySelector('#searchBar');
 var $seachBtn = document.querySelector('#seachBtn');
 var $tbody = document.querySelector('tbody');
-var $stockName = document.querySelector('.stock-name');
-var $stockCurrentPrice = document.querySelector('#stock-current-price');
-var $stockCurrentPrice2 = document.querySelector('#stock-current-price-2');
-var $todayHigh = document.querySelector('.today-high');
-var $todayLow = document.querySelector('.today-low');
-var $todayOpen = document.querySelector('.today-open');
-var $PreviosClose = document.querySelector('.previos-close');
+var $stockName = '';
+var $stockCurrentPrice = '';
+var $stockCurrentPrice2 = '';
+var $todayHigh = '';
+var $todayLow = '';
+var $todayOpen = '';
+var $PreviosClose = '';
+var $displayStockContent = document.querySelector('.displayStockContent');
 var $displayTable = document.querySelector('.displayTable');
 var $displayWatchListTable = document.querySelector('.displayWatchListTable');
-var $view = document.querySelectorAll('.view');
-var $close = document.querySelector('#close');
+
 var $watchlistNavBtn = document.querySelector('.watchlistNavBtn');
 var $homeBtn = document.querySelector('.homeBtn');
 var $searchSeaction = document.querySelector('.searchSeaction');
-var $watchListBtn = document.querySelector('#watchListBtn');
-var $deleteBtn = document.querySelector('#deleteBtn');
 var $cancelationPage = document.querySelector('.cancelationPage');
 var $deleteBtnConfirm = document.querySelector('.deleteBtnConfirm');
 var $cancelBtnModal = document.querySelector('.cancelBtnModal');
+var $container = document.querySelector('.main-container');
 
 var searchListSymbol = [];
 var searchListName = [];
@@ -33,27 +32,24 @@ var stockDateTime = [];
 $seachBtn.addEventListener('click', seachStock);
 $displayTable.addEventListener('click', displayTableClick);
 $displayWatchListTable.addEventListener('click', displayWatchListTableClick);
-$close.addEventListener('click', closeSpecificStock);
+//
 $watchlistNavBtn.addEventListener('click', watchlistNavBtnClick);
 $homeBtn.addEventListener('click', homeBtnClick);
-$watchListBtn.addEventListener('click', watchListBtnClick);
-$deleteBtn.addEventListener('click', deleteBtnClick);
 $deleteBtnConfirm.addEventListener('click', deleteBtnConfirmClick);
 $cancelBtnModal.addEventListener('click', cancelBtnModalClick);
 
 function deleteBtnClick() {
   $cancelationPage.className = 'cancelationPage';
 }
+
 function cancelBtnModalClick() {
   $cancelationPage.className = 'cancelationPage hidden';
 }
 function deleteBtnConfirmClick() {
-  if (data.isWatchlist === true) {
+  if (data.view === 'watchlist-stock-view') {
     $cancelationPage.className = 'cancelationPage hidden';
     data.watchlistEntries.splice(data.watchlistEntries.indexOf(data.currentStock), 1);
     data.currentStock = null;
-    data.isPortfolio = false;
-    data.isWatchlist = true;
     switchView('watchlist-view');
   }
 
@@ -64,31 +60,24 @@ function displayWatchListTableClick(event) {
     return;
   }
   data.currentStock = event.target.getAttribute('watchlist-symbol');
-  switchView('stock-view');
+  switchView('watchlist-stock-view');
 }
 
 function watchListBtnClick(event) {
   if (data.watchlistEntries.indexOf(data.currentStock) === -1) {
     data.watchlistEntries.push(data.currentStock);
   }
-  data.currentStock = null;
-  data.isPortfolio = false;
-  data.isWatchlist = true;
   switchView('watchlist-view');
 }
 
 function watchlistNavBtnClick(event) {
   $seachBar.value = '';
   data.currentStock = null;
-  data.isPortfolio = false;
-  data.isWatchlist = true;
   switchView('watchlist-view');
 }
 function homeBtnClick(event) {
   $seachBar.value = '';
   data.currentStock = null;
-  data.isPortfolio = false;
-  data.isWatchlist = false;
   switchView('home-view');
 }
 
@@ -97,8 +86,6 @@ function closeSpecificStock() {
   switchView('home-view');
 }
 function seachStock(event) {
-  data.isPortfolio = false;
-  data.isWatchlist = false;
   seachStockAPI($seachBar.value);
   switchView('search-view');
 }
@@ -157,6 +144,7 @@ function displayTableClick(event) {
     return;
   }
   data.currentStock = event.target.getAttribute('stock-symbol');
+  // generateDomTree(event.target.getAttribute('stock-symbol'), 'stock-view');
   switchView('stock-view');
 }
 
@@ -198,67 +186,236 @@ function showList() {
   searchListName = [];
   searchListSymbol = [];
 }
+function generateDomTree(specificStock, stockView) {
+  $displayStockContent.remove();
 
-function getSpecificStockAPI(specificStock) {
-  // stockSymbol = specificStock;
+  $displayStockContent = document.createElement('div');
+  $displayStockContent.setAttribute('class', 'displayStockContent');
+  $container.appendChild($displayStockContent);
+  /// ////////////******************/////////////////
+
+  var domViewDiv = document.createElement('div');
+  domViewDiv.setAttribute('class', 'view');
+  domViewDiv.setAttribute('data-view', stockView);
+  $displayStockContent.appendChild(domViewDiv);
+  /// ////////////////ROW STOCK NAME/////////////////////////
+  var domViewRowStockName = document.createElement('div');
+  domViewRowStockName.setAttribute('class', 'row');
+  domViewDiv.appendChild(domViewRowStockName);
+
+  var domViewRowStockNameFullCol = document.createElement('div');
+  domViewRowStockNameFullCol.setAttribute('class', 'column-full align-content-space-between');
+  domViewRowStockName.appendChild(domViewRowStockNameFullCol);
+
+  var domViewRowStockNameH2 = document.createElement('h2');
+  domViewRowStockNameH2.setAttribute('class', 'stock-name');
+  domViewRowStockNameFullCol.appendChild(domViewRowStockNameH2);
+  var domViewRowStockNameI = document.createElement('i');
+  domViewRowStockNameI.setAttribute('id', 'close');
+  domViewRowStockNameI.setAttribute('class', 'fa fa-times margin-right');
+  domViewRowStockNameFullCol.appendChild(domViewRowStockNameI);
+  /// ////////////////ROW STOCK PRICE///////////////////////////
+  var domViewRowStockPrice = document.createElement('div');
+  domViewRowStockPrice.setAttribute('class', 'row');
+  domViewDiv.appendChild(domViewRowStockPrice);
+
+  var domViewRowStockPriceFullCol = document.createElement('div');
+  domViewRowStockPriceFullCol.setAttribute('class', 'column-full display-flex');
+  domViewRowStockPrice.appendChild(domViewRowStockPriceFullCol);
+
+  var domViewRowStockPrice1H3 = document.createElement('h3');
+  var domViewRowStockPrice2H3 = document.createElement('h3');
+  domViewRowStockPrice1H3.setAttribute('id', 'stock-current-price');
+  domViewRowStockPrice2H3.setAttribute('id', 'stock-current-price-2');
+  domViewRowStockPriceFullCol.appendChild(domViewRowStockPrice1H3);
+  domViewRowStockPriceFullCol.appendChild(domViewRowStockPrice2H3);
+  /// //////////////////Graph Row/////////////////////
+  var domViewGraphDiv = document.createElement('div');
+  domViewGraphDiv.setAttribute('class', 'row');
+  domViewDiv.appendChild(domViewGraphDiv);
+
+  var domViewGraphDivFullCol = document.createElement('div');
+  domViewGraphDivFullCol.setAttribute('class', 'column-half padding-bottom');
+  domViewGraphDiv.appendChild(domViewGraphDivFullCol);
+
+  var domViewGraphPlotDiv = document.createElement('div');
+  domViewGraphPlotDiv.setAttribute('id', 'graphPlot');
+  domViewGraphPlotDiv.setAttribute('class', 'width: 100%; height: 380px;');
+  domViewGraphDivFullCol.appendChild(domViewGraphPlotDiv);
+  /// ////////////////Stock Deatils//////////////////
+  var domViewStockDeatailDiv = document.createElement('div');
+  domViewStockDeatailDiv.setAttribute('class', 'column-half padding-top');
+  domViewGraphDiv.appendChild(domViewStockDeatailDiv);
+  /// //////////////STOCK HIGH//////////////////////
+  var domViewStockDeatailHighDiv = document.createElement('div');
+  domViewStockDeatailHighDiv.setAttribute('class', 'align-content-space-between h3-margin-top-bottom');
+  domViewStockDeatailDiv.appendChild(domViewStockDeatailHighDiv);
+
+  var domViewStockDeatailHighH3Lable = document.createElement('h3');
+  var domViewStockDeatailHighH3Value = document.createElement('h3');
+  domViewStockDeatailHighH3Lable.textContent = 'Today\'s High';
+  domViewStockDeatailHighH3Value.setAttribute('class', 'today-high');
+  domViewStockDeatailHighDiv.appendChild(domViewStockDeatailHighH3Lable);
+  domViewStockDeatailHighDiv.appendChild(domViewStockDeatailHighH3Value);
+  /// /////////////STOCK LOW////////////////////
+  var domViewStockDeatailLowDiv = document.createElement('div');
+  domViewStockDeatailLowDiv.setAttribute('class', 'align-content-space-between h3-margin-top-bottom');
+  domViewStockDeatailDiv.appendChild(domViewStockDeatailLowDiv);
+
+  var domViewStockDeatailLowH3Lable = document.createElement('h3');
+  var domViewStockDeatailLowH3Value = document.createElement('h3');
+  domViewStockDeatailLowH3Lable.textContent = 'Today\'s Low';
+  domViewStockDeatailLowH3Value.setAttribute('class', 'today-low');
+  domViewStockDeatailLowDiv.appendChild(domViewStockDeatailLowH3Lable);
+  domViewStockDeatailLowDiv.appendChild(domViewStockDeatailLowH3Value);
+  /// /////////////STOCK Open////////////////////
+  var domViewStockDeatailOpenDiv = document.createElement('div');
+  domViewStockDeatailOpenDiv.setAttribute('class', 'align-content-space-between h3-margin-top-bottom');
+  domViewStockDeatailDiv.appendChild(domViewStockDeatailOpenDiv);
+
+  var domViewStockDeatailOpenH3Lable = document.createElement('h3');
+  var domViewStockDeatailOpenH3Value = document.createElement('h3');
+  domViewStockDeatailOpenH3Lable.textContent = 'Today\'s Open';
+  domViewStockDeatailOpenH3Value.setAttribute('class', 'today-open');
+  domViewStockDeatailOpenDiv.appendChild(domViewStockDeatailOpenH3Lable);
+  domViewStockDeatailOpenDiv.appendChild(domViewStockDeatailOpenH3Value);
+  /// /////////////STOCK Close////////////////////
+  var domViewStockDeatailCloseDiv = document.createElement('div');
+  domViewStockDeatailCloseDiv.setAttribute('class', 'align-content-space-between h3-margin-top-bottom');
+  domViewStockDeatailDiv.appendChild(domViewStockDeatailCloseDiv);
+
+  var domViewStockDeatailCloseH3Lable = document.createElement('h3');
+  var domViewStockDeatailCloseH3Value = document.createElement('h3');
+  domViewStockDeatailCloseH3Lable.textContent = 'Previous Close';
+  domViewStockDeatailCloseH3Value.setAttribute('class', 'previos-close');
+  domViewStockDeatailCloseDiv.appendChild(domViewStockDeatailCloseH3Lable);
+  domViewStockDeatailCloseDiv.appendChild(domViewStockDeatailCloseH3Value);
+  if (stockView === 'stock-view') {
+    /// //////////WatchList Btn Div///////////////////
+    var domViewWatchlistDiv = document.createElement('div');
+    domViewWatchlistDiv.setAttribute('class', 'align-content-center width-100 button-space');
+    domViewStockDeatailDiv.appendChild(domViewWatchlistDiv);
+
+    var domViewWatchlistBtn = document.createElement('button');
+    domViewWatchlistBtn.setAttribute('id', 'watchListBtn');
+    domViewWatchlistBtn.textContent = 'Add to Watchlist';
+    domViewWatchlistDiv.appendChild(domViewWatchlistBtn);
+    /// ////////////Portfolio Btn Div//////////////////////
+    var domViewPortfolioDiv = document.createElement('div');
+    domViewPortfolioDiv.setAttribute('class', 'align-content-center width-100 button-space');
+    domViewStockDeatailDiv.appendChild(domViewPortfolioDiv);
+
+    var domViewPortfolioBtn = document.createElement('button');
+    domViewPortfolioBtn.setAttribute('id', 'portfolioBtn');
+    domViewPortfolioBtn.textContent = 'Add to Portfolio';
+    domViewPortfolioDiv.appendChild(domViewPortfolioBtn);
+    /// /action////
+    var $watchListBtn = document.querySelector('#watchListBtn');
+    $watchListBtn.addEventListener('click', watchListBtnClick);
+  } else if (stockView === 'watchlist-stock-view') {
+    /// ////////////Portfolio Btn Div//////////////////////
+    var domWatchlistViewPortfolioDiv = document.createElement('div');
+    domWatchlistViewPortfolioDiv.setAttribute('class', 'align-content-center width-100 button-space');
+    domViewStockDeatailDiv.appendChild(domWatchlistViewPortfolioDiv);
+
+    var domWatchlistViewPortfolioBtn = document.createElement('button');
+    domWatchlistViewPortfolioBtn.setAttribute('id', 'portfolioBtn');
+    domWatchlistViewPortfolioBtn.textContent = 'Add to Portfolio';
+    domWatchlistViewPortfolioDiv.appendChild(domWatchlistViewPortfolioBtn);
+
+    var domViewDeleteDiv = document.createElement('div');
+    domViewDeleteDiv.setAttribute('class', 'align-content-center width-100 button-space');
+    domViewStockDeatailDiv.appendChild(domViewDeleteDiv);
+
+    var domViewWatchDeleteBtn = document.createElement('button');
+    domViewWatchDeleteBtn.setAttribute('id', 'deleteBtn');
+    domViewWatchDeleteBtn.textContent = 'Delete';
+    domViewDeleteDiv.appendChild(domViewWatchDeleteBtn);
+    /// /action////
+    var $deleteBtn = document.querySelector('#deleteBtn');
+    $deleteBtn.addEventListener('click', deleteBtnClick);
+  }
+  var $close = document.querySelector('#close');
+  $close.addEventListener('click', closeSpecificStock);
+  $container.appendChild($displayStockContent);
+  getStockNamePrice(specificStock);
+}
+
+function getStockNamePrice(specificStock) {
   var xhr = new XMLHttpRequest();
+  $stockName = document.querySelector('.stock-name');
+  $stockCurrentPrice = document.querySelector('#stock-current-price');
+  $stockCurrentPrice2 = document.querySelector('#stock-current-price-2');
+  $todayHigh = document.querySelector('.today-high');
+  $todayLow = document.querySelector('.today-low');
+  $todayOpen = document.querySelector('.today-open');
+  $PreviosClose = document.querySelector('.previos-close');
   xhr.open('GET', 'https://cloud.iexapis.com/stable/stock/' + specificStock + '/quote?token=sk_d5ca9aca3c0c446b93e9d5013e8d4a95');
   xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    $stockName.textContent = xhr.response.companyName;
-    $PreviosClose.textContent = xhr.response.previousClose;
-    var change = '' + xhr.response.change;
-    $stockCurrentPrice.textContent = xhr.response.latestPrice;
-    $stockCurrentPrice2.textContent = xhr.response.change + ' (' + (parseFloat(xhr.response.changePercent) * 100).toFixed(2) + '%)';
-    if (change[0] === '-') {
-      $stockCurrentPrice.setAttribute('class', 'display-flex stock-price-red');
-      $stockCurrentPrice2.setAttribute('class', 'stock-price-red');
-    } else {
-      $stockCurrentPrice.setAttribute('class', 'display-flex stock-price-green');
-      $stockCurrentPrice2.setAttribute('class', 'stock-price-green');
-    }
-    getOpenCloseHigh(specificStock);
-  });
+  xhr.addEventListener('load', getStockNamePriceData);
   xhr.send();
 }
 
-function getOpenCloseHigh(specificStock) {
+function getStockNamePriceData(event) {
+  $stockName.textContent = event.target.response.companyName;
+  $PreviosClose.textContent = event.target.response.previousClose;
+  var change = '' + event.target.response.change;
+  $stockCurrentPrice.textContent = event.target.response.latestPrice;
+  $stockCurrentPrice2.textContent = event.target.response.change + ' (' + (parseFloat(event.target.response.changePercent) * 100).toFixed(2) + '%)';
+  if (change[0] === '-') {
+    $stockCurrentPrice.setAttribute('class', 'display-flex stock-price-red');
+    $stockCurrentPrice2.setAttribute('class', 'stock-price-red');
+  } else {
+    $stockCurrentPrice.setAttribute('class', 'display-flex stock-price-green');
+    $stockCurrentPrice2.setAttribute('class', 'stock-price-green');
+  }
+  getOpenCloseHigh();
+}
+
+function getOpenCloseHigh() {
   stockDateTime = [];
   stockHigh = [];
   stockLow = [];
   stockOpen = [];
   stockClose = [];
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://cloud.iexapis.com/stable/stock/' + specificStock + '/intraday-prices?token=sk_d5ca9aca3c0c446b93e9d5013e8d4a95');
+  xhr.open('GET', 'https://cloud.iexapis.com/stable/stock/' + data.currentStock + '/intraday-prices?token=sk_d5ca9aca3c0c446b93e9d5013e8d4a95');
   xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    for (var i = 0; i < xhr.response.length; i++) {
-      stockDateTime.push(xhr.response[i].date + ' ' + xhr.response[i].minute);
-      stockHigh.push(xhr.response[i].high);
-      stockLow.push(xhr.response[i].low);
-      stockOpen.push(xhr.response[i].open);
-      stockClose.push(xhr.response[i].close);
-    }
-    $todayHigh.textContent = _.max(stockHigh);
-    $todayLow.textContent = _.min(stockLow);
-    $todayOpen.textContent = stockOpen[0];
-    var data1 = [
-      {
-        x: stockDateTime,
-        y: stockClose,
-        type: 'scatter'
-      }
-    ];
-    var layout = {
-      title: $stockName.textContent,
-      font: { size: 14 },
-      padding: 0
-    };
-    Plotly.newPlot('graphPlot', data1, layout, { responsive: true });
-  });
+  xhr.addEventListener('load', getOpenCloseHighData);
   xhr.send();
 }
+function getOpenCloseHighData(event) {
+  for (var i = 0; i < event.target.response.length; i++) {
+    stockDateTime.push(event.target.response[i].date + ' ' + event.target.response[i].minute);
+    stockHigh.push(event.target.response[i].high);
+    stockLow.push(event.target.response[i].low);
+    stockOpen.push(event.target.response[i].open);
+    stockClose.push(event.target.response[i].close);
+  }
+  generateGraph();
+}
+
+function generateGraph() {
+  $todayHigh.textContent = _.max(stockHigh);
+  $todayLow.textContent = _.min(stockLow);
+  $todayOpen.textContent = stockOpen[0];
+  var data1 = [
+    {
+      x: stockDateTime,
+      y: stockClose,
+      type: 'scatter'
+    }
+  ];
+  var layout = {
+    title: $stockName.textContent,
+    font: { size: 14 },
+    padding: 0
+  };
+  Plotly.newPlot('graphPlot', data1, layout, { responsive: true });
+}
+
 function switchView(view) {
+  var $view = document.querySelectorAll('.view');
   data.view = view;
   for (var i = 0; i < $view.length; i++) {
     if ($view[i].getAttribute('data-view') === view) {
@@ -272,17 +429,10 @@ function switchView(view) {
   } else {
     $searchSeaction.className = 'searchSeaction hidden';
   }
-  if (data.currentStock !== null && data.isPortfolio === false && data.isPortfolio === false) {
-    $deleteBtn.className = 'hidden';
-    $watchListBtn.className = 'show';
-    getSpecificStockAPI(data.currentStock);
+  if ((data.view === 'stock-view' || data.view === 'watchlist-stock-view') && data.currentStock !== null) {
+    generateDomTree(data.currentStock, data.view);
   }
-  if (data.view === 'watchlist-view' && data.isWatchlist === true) {
-    generateWatchlist();
-  }
-  if (data.view === 'stock-view' && data.isWatchlist === true) {
-    $deleteBtn.className = 'show';
-    $watchListBtn.className = 'hidden';
+  if (data.view === 'watchlist-view') {
     generateWatchlist();
   }
 }
