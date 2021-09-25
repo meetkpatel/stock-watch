@@ -235,6 +235,14 @@ h1 {
   margin: 0.5rem;
 }
 
+.displayPortfolioTable tr td h6 {
+  margin: 0.3rem;
+}
+
+.displayPortfolioTable tr td h5 {
+  margin: 0.3rem;
+}
+
 .watchlistNameTd {
   width: 70%;
 }
@@ -242,6 +250,17 @@ h1 {
 .watchlistPriceTd {
   min-width: 220px;
   width: 30%;
+}
+
+.portfolioStockDetailTd {
+  width: 70%;
+}
+
+.portfolioStockPriceTd {
+  padding-left: 5rem;
+  min-width: 220px;
+  width: 30%;
+  text-align: center;
 }
 
 .textCenter {

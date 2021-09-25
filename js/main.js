@@ -13,6 +13,7 @@ var $PreviosClose = '';
 var $displayStockContent = document.querySelector('.displayStockContent');
 var $displayTable = document.querySelector('.displayTable');
 var $displayWatchListTable = document.querySelector('.displayWatchListTable');
+var $displayPortfolioTable = document.querySelector('.displayPortfolioTable');
 
 var $watchlistNavBtn = document.querySelector('.watchlistNavBtn');
 var $portfolioNavBtn = document.querySelector('.portfolioNavBtn');
@@ -32,7 +33,7 @@ var stockLow = [];
 var stockOpen = [];
 var stockClose = [];
 var stockDateTime = [];
-
+var portfolioCurrentStock = '';
 var domPortfolioViewQtyInput = '';
 var domPortfolioViewQtyPriceInput = '';
 var $portfolioAddBtn = '';
@@ -203,6 +204,93 @@ function seachStockAPI(keyword) {
     showList();
   });
   xhr.send();
+}
+
+function generatePortfoliolist() {
+  var $trNodes = document.querySelectorAll('tr');
+  for (var j = 0; j < $trNodes.length; j++) {
+    $trNodes[j].remove();
+  }
+  for (var i = 0; i < data.portfolioEntries.length; i++) {
+    portfolioCurrentStock = data.portfolioEntries[i].stockName;
+    getLatestPrice(portfolioCurrentStock);
+  }
+}
+
+function getLatestPrice(specificStock) {
+  /// ///////////////////////
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://cloud.iexapis.com/stable/stock/' + specificStock + '/quote?token=sk_d5ca9aca3c0c446b93e9d5013e8d4a95');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', generateDomPortfoliolist);
+  xhr.send();
+}
+
+function generateDomPortfoliolist(event) {
+  var portfolioCurrentName = event.target.response.companyName;
+  var portfolioCurrentPrice = event.target.response.latestPrice;
+  var portfolioCurrentSymbol = event.target.response.symbol;
+  for (var i = 0; i < data.portfolioEntries.length; i++) {
+    if (data.portfolioEntries[i].stockName === portfolioCurrentSymbol) {
+      var portfolioCurrentStockQty = data.portfolioEntries[i].stockQty;
+      var portfolioCurrentStockPrice = data.portfolioEntries[i].stockPrice;
+    }
+  }
+  var portfolioCurrentValue = (portfolioCurrentPrice * portfolioCurrentStockQty).toFixed(2);
+  var portfolioInvestedValue = (portfolioCurrentStockPrice * portfolioCurrentStockQty).toFixed(2);
+  var portfolioPriceDiffrence = (portfolioCurrentValue - portfolioInvestedValue).toFixed(2);
+  var portfolioPercent = ((portfolioPriceDiffrence / portfolioInvestedValue) * 100);
+  var $tr = document.createElement('tr');
+
+  var $tdStockDetails = document.createElement('td');
+  $tdStockDetails.setAttribute('class', 'portfolioStockDetailTd');
+  $tr.appendChild($tdStockDetails);
+
+  var $h6Qty = document.createElement('h6');
+  $h6Qty.setAttribute('class', 'h6Qty');
+  $h6Qty.textContent = 'Qty: ' + portfolioCurrentStockQty;
+  $tdStockDetails.appendChild($h6Qty);
+
+  var $h5Name = document.createElement('h5');
+  $h5Name.setAttribute('class', 'h5Name');
+  $h5Name.textContent = portfolioCurrentName;
+  $tdStockDetails.appendChild($h5Name);
+
+  var $h6Invested = document.createElement('h6');
+  $h6Invested.setAttribute('class', 'h6Invested');
+  $h6Invested.textContent = 'Buying Price: ' + portfolioCurrentStockPrice;
+  // $stockCurrentPrice2.textContent = event.target.response.change + ' (' + (parseFloat(event.target.response.changePercent) * 100).toFixed(2) + '%)';
+  $tdStockDetails.appendChild($h6Invested);
+  /// /////////////////////////
+  var $tdStockPrice = document.createElement('td');
+  $tdStockPrice.setAttribute('class', 'portfolioStockPriceTd');
+  $tr.appendChild($tdStockPrice);
+
+  var $h6Percent = document.createElement('h6');
+  $h6Percent.setAttribute('class', 'h6Percent');
+  $h6Percent.textContent = portfolioPercent.toFixed(2);
+  $tdStockPrice.appendChild($h6Percent);
+
+  var $h5CurrentPrice = document.createElement('h5');
+  $h5CurrentPrice.setAttribute('class', 'h5CurrentPrice');
+  $h5CurrentPrice.textContent = portfolioCurrentPrice;
+  $tdStockPrice.appendChild($h5CurrentPrice);
+
+  var $h6TotalCurrentPrice = document.createElement('h6');
+  $h6TotalCurrentPrice.setAttribute('class', 'h6TotalCurrentPrice');
+  $h6TotalCurrentPrice.textContent = (portfolioCurrentPrice * portfolioCurrentStockQty).toFixed(2);
+  $tdStockPrice.appendChild($h6TotalCurrentPrice);
+
+  $displayPortfolioTable.appendChild($tr);
+  // $stockCurrentPrice2.textContent = event.target.response.change + ' (' + (parseFloat(event.target.response.changePercent) * 100).toFixed(2) + '%)';
+  // if (change[0] === '-') {
+  //   $stockCurrentPrice.setAttribute('class', 'display-flex stock-price-red');
+  //   $stockCurrentPrice2.setAttribute('class', 'stock-price-red');
+  // } else {
+  //   $stockCurrentPrice.setAttribute('class', 'display-flex stock-price-green');
+  //   $stockCurrentPrice2.setAttribute('class', 'stock-price-green');
+  // }
 }
 
 function showList() {
@@ -538,6 +626,9 @@ function switchView(view) {
   }
   if (data.view === 'watchlist-view') {
     generateWatchlist();
+  }
+  if (data.view === 'portfoliolist-view') {
+    generatePortfoliolist();
   }
 }
 switchView(data.view);
