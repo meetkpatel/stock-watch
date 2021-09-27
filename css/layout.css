@@ -18,6 +18,14 @@
   width: 100%;
 }
 
+.portfolioBox {
+  width: 20rem;
+  min-height: 13rem;
+  border: 2px solid black;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 900px;
@@ -30,5 +38,9 @@
 
   .column-half {
     width: 50%;
+  }
+
+  .portfolioBox {
+    min-height: 9rem;
   }
 }

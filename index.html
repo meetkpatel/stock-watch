@@ -11,19 +11,24 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre&family=Source+Sans+Pro&family=Yaldevi&display=swap"
+  rel="stylesheet">
+
 </head>
 <body>
   <header class="font-family-proza">
     <div class="container navBar">
       <div class="row">
         <div class="margin-right-30px align-content-center">
-          <h2 class="homeBtn font-family-proza">Stock Watch</h2>
+          <h2 class="homeBtn font-family-proza font-family-gemunu ">Stock Watch</h2>
         </div>
         <div class="align-content-center">
-          <h3 class="watchlistNavBtn">Watchlist</h3>
+          <h3 class="watchlistNavBtn font-family-gemunu ">Watchlist</h3>
         </div>
         <div class="align-content-center">
-          <h3 class="portfolioNavBtn">Portfolio</h3>
+          <h3 class="portfolioNavBtn font-family-gemunu ">Portfolio</h3>
         </div>
       </div>
     </div>
@@ -38,7 +43,7 @@
       </div>
       <div class="row align-content-center">
         <div class="view" data-view="home-view">
-          <p>No stock search yet</p>
+          <p class="font-family-gemunu">No stock search yet</p>
         </div>
       </div>
       <div class="view" data-view="search-view">
@@ -56,7 +61,7 @@
       </div>
       <div class="view" data-view="watchlist-view">
         <div class="row align-content-center">
-          <h1>Watchlist</h1>
+          <h1 class="font-family-yaldevi">Watchlist</h1>
         </div>
         <div class="row">
           <table>
@@ -67,36 +72,32 @@
       </div>
       <div class="view" data-view="portfoliolist-view">
         <div class="row align-content-center">
-          <h1>Portfolio</h1>
+          <h1 class="font-family-yaldevi">Portfolio</h1>
+        </div>
+        <div class="row align-content-center">
+          <div class="portfolioBox">
+            <div class="row">
+              <div class="column-half textCenter">
+                <h3 class="font-family-yaldevi">Invested</h3>
+                <h3 class="H3PortfolioInvested font-family-yaldevi"></h3>
+              </div>
+              <div class="column-half textCenter">
+                <h3 class="font-family-yaldevi">Current</h3>
+                <h3 class="H3PortfolioCurrent font-family-yaldevi"></h3>
+              </div>
+            </div>
+            <div class="row top-border">
+              <div class="column-full textCenter ">
+                <span class="font-family-yaldevi"><h2 class="H3PLStatement"></h2></span>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="row">
           <table>
             <tbody class="displayPortfolioTable">
-                <tr>
-                  <td class="portfolioStockDetailTd">
-                    <h6>Qty: 200</h6>
-                    <h5>Tesla Inc.</h5>
-                    <h6>Invested: 2000</h6>
-                  </td>
-                  <td class="portfolioStockPriceTd">
-                    <h6>Qty: 200</h6>
-                    <h5>Tesla Inc.</h5>
-                    <h6>Invested: 2000</h6>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="portfolioStockDetailTd">
-                    <h6>Qty: 200</h6>
-                    <h5>Apple Inc.</h5>
-                    <h6>Invested: 2000</h6>
-                  </td>
-                  <td class="portfolioStockPriceTd">
-                    <h6>Qty: 200</h6>
-                    <h5>Apple Inc.</h5>
-                    <h6>Invested: 2000</h6>
-                  </td>
-                </tr>
-              </tbody>
+
+            </tbody>
           </table>
         </div>
       </div>
