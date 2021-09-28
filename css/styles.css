@@ -5,13 +5,23 @@
 }
 
 header {
-  background-color: #ee6e73;
+  background-color: #40916c;
   color: white;
   align-items: center;
 }
 
-.font-family-proza {
-  font-family: 'Proza', sans-serif;
+.font-family-gemunu {
+  font-family: 'Gemunu Libre', sans-serif;
+}
+
+.font-family-yaldevi {
+  font-family: 'Yaldevi', sans-serif;
+}
+
+.column-full h2,
+.column-full h3,
+.column-half h3 {
+  font-family: 'Yaldevi', sans-serif;
 }
 
 ul,
@@ -76,7 +86,7 @@ li {
   width: 7%;
   min-width: 40px;
   padding: 10px;
-  background: #ee6e73;
+  background: #40916c;
   color: white;
   font-size: 17px;
   border: 1px solid grey;
@@ -89,6 +99,7 @@ li {
 table {
   width: 100%;
   border-spacing: 0;
+  padding-bottom: 3rem;
 }
 
 tr {
@@ -102,8 +113,18 @@ td {
   font-family: sans-serif;
 }
 
+td:nth-child(odd) {
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+td:nth-child(even) {
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
 tr:nth-child(odd) {
-  background-color: rgba(238, 110, 115, 0.1);
+  background-color: rgba(120, 189, 93, 0.3);
 }
 
 .width-90 {
@@ -132,6 +153,14 @@ h1 {
   color: rgb(206, 62, 62);
 }
 
+.portfolio-price-green {
+  color: rgb(10, 158, 10);
+}
+
+.portfolio-price-red {
+  color: rgb(206, 62, 62);
+}
+
 .display-flex {
   display: flex;
 }
@@ -146,6 +175,7 @@ h1 {
 
 .button-space {
   padding: 0.5rem 0;
+  margin-top: 0.5rem;
 }
 
 #stock-current-price-span {
@@ -158,7 +188,7 @@ h1 {
 }
 
 #watchListBtn {
-  height: 2rem;
+  height: 2.2rem;
   width: 10rem;
   background-color: #007bff;
   border: none;
@@ -169,7 +199,7 @@ h1 {
 
 #portfolioBtn {
   text-align: center;
-  height: 2rem;
+  height: 2.2rem;
   width: 10rem;
   background-color: #28a745;
   border: none;
@@ -179,7 +209,7 @@ h1 {
 }
 
 #deleteBtn {
-  height: 2rem;
+  height: 2.2rem;
   width: 10rem;
   background-color: #d44545;
   border: none;
@@ -189,7 +219,8 @@ h1 {
 }
 
 .homeBtn,
-.watchlistBtn:hover {
+.watchlistNavBtn,
+.portfolioNavBtn:hover {
   cursor: pointer;
 }
 
@@ -233,6 +264,17 @@ h1 {
 .displayWatchListTable tr td h4 {
   font-size: 1.2rem;
   margin: 0.5rem;
+  font-family: 'Yaldevi', sans-serif;
+}
+
+.displayPortfolioTable tr td h6 {
+  margin: 0.3rem;
+  font-family: 'Yaldevi', sans-serif;
+}
+
+.displayPortfolioTable tr td h5 {
+  margin: 0.3rem;
+  font-family: 'Yaldevi', sans-serif;
 }
 
 .watchlistNameTd {
@@ -244,11 +286,26 @@ h1 {
   width: 30%;
 }
 
+.portfolioStockDetailTd {
+  width: 70%;
+}
+
+.portfolioStockPriceTd {
+  padding-left: 5rem;
+  min-width: 220px;
+  width: 30%;
+  text-align: center;
+}
+
 .textCenter {
   text-align: center;
 }
 
 .watchlistNameTd h4:hover {
+  cursor: pointer;
+}
+
+.portfolioStockDetailTd h5:hover {
   cursor: pointer;
 }
 
@@ -325,4 +382,16 @@ h1 {
 .portfolio-input-width {
   width: 70%;
   height: 2rem;
+}
+
+.portfolioBox h3 {
+  margin: 0.5rem;
+}
+
+.top-border {
+  border-top: 2px solid black;
+}
+
+input {
+  padding-left: 0.8rem;
 }
