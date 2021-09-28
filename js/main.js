@@ -49,7 +49,6 @@ $displayTable.addEventListener('click', displayTableClick);
 $displayWatchListTable.addEventListener('click', displayWatchListTableClick);
 $displayPortfolioTable.addEventListener('click', displayPortfolioTableClick);
 
-//
 $watchlistNavBtn.addEventListener('click', watchlistNavBtnClick);
 $portfolioNavBtn.addEventListener('click', portfolioNavBtnClick);
 
@@ -234,7 +233,6 @@ function displayTableClick(event) {
     return;
   }
   data.currentStock = event.target.getAttribute('stock-symbol');
-  // generateDomTree(event.target.getAttribute('stock-symbol'), 'stock-view');
   switchView('stock-view');
 }
 
@@ -264,7 +262,6 @@ function generatePortfoliolist() {
 }
 
 function getLatestPrice(specificStock) {
-  /// ///////////////////////
 
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://cloud.iexapis.com/stable/stock/' + specificStock + '/quote?token=sk_d5ca9aca3c0c446b93e9d5013e8d4a95');
@@ -337,9 +334,7 @@ function generateDomPortfoliolist(event) {
   var $h6Invested = document.createElement('h6');
   $h6Invested.setAttribute('class', 'h6Invested');
   $h6Invested.textContent = 'Buying Price: ' + portfolioCurrentStockPrice;
-  // $stockCurrentPrice2.textContent = event.target.response.change + ' (' + (parseFloat(event.target.response.changePercent) * 100).toFixed(2) + '%)';
   $tdStockDetails.appendChild($h6Invested);
-  /// /////////////////////////
   var $tdStockPrice = document.createElement('td');
   $tdStockPrice.setAttribute('class', 'portfolioStockPriceTd');
   $tr.appendChild($tdStockPrice);
@@ -392,7 +387,6 @@ function generateDomTree(specificStock, stockView) {
   $displayStockContent = document.createElement('div');
   $displayStockContent.setAttribute('class', 'displayStockContent');
   $container.appendChild($displayStockContent);
-  /// ////////////******************/////////////////
 
   var domViewDiv = document.createElement('div');
   domViewDiv.setAttribute('class', 'view');
@@ -557,7 +551,6 @@ function generateDomTree(specificStock, stockView) {
     domPortfolioViewQtyInput.setAttribute('class', 'portfolio-input-width');
     domPortfolioViewQtyInput.setAttribute('placeholder', 'Add number of stocks');
     domPortfolioViewStockQtyDiv.appendChild(domPortfolioViewQtyInput);
-    /// //////////////
     var domPortfolioViewStockQtyPriceDiv = document.createElement('div');
     domPortfolioViewStockQtyPriceDiv.setAttribute('class', 'align-content-center width-100 button-space');
     domPortfolioForm.appendChild(domPortfolioViewStockQtyPriceDiv);
@@ -570,8 +563,6 @@ function generateDomTree(specificStock, stockView) {
     domPortfolioViewQtyPriceInput.setAttribute('placeholder', 'Add buying price of stock');
     domPortfolioViewStockQtyPriceDiv.appendChild(domPortfolioViewQtyPriceInput);
 
-    /// ///////////////
-    /// /
     var domPortfolioViewPortfolioDiv = document.createElement('div');
     domPortfolioViewPortfolioDiv.setAttribute('class', 'align-content-center width-100 button-space');
     domPortfolioForm.appendChild(domPortfolioViewPortfolioDiv);
@@ -582,19 +573,9 @@ function generateDomTree(specificStock, stockView) {
     domPortfolioViewPortfolioBtn.textContent = 'Add to Portfolio';
     domPortfolioViewPortfolioDiv.appendChild(domPortfolioViewPortfolioBtn);
 
-    // var domPortfolioViewDeleteDiv = document.createElement('div');
-    // domPortfolioViewDeleteDiv.setAttribute('class', 'align-content-center width-100 button-space');
-    // domViewStockDeatailDiv.appendChild(domPortfolioViewDeleteDiv);
-
-    // var domPortfolioViewWatchDeleteBtn = document.createElement('button');
-    // domPortfolioViewWatchDeleteBtn.setAttribute('id', 'deleteBtn');
-    // domPortfolioViewWatchDeleteBtn.textContent = 'Delete';
-    // domPortfolioViewDeleteDiv.appendChild(domPortfolioViewWatchDeleteBtn);
     /// ////action////
     $portfolioAddBtn = document.querySelector('#portfolioForm');
     $portfolioAddBtn.addEventListener('submit', portfolioAddBtnClick);
-    // var $portfoliodeleteBtn = document.querySelector('#deleteBtn');
-    // $portfoliodeleteBtn.addEventListener('click', deleteBtnClick);
   } else if (stockView === 'portfolio-edit-stock-view') {
     /// ////////////Portfolio Btn Div//////////////////////
 
@@ -611,9 +592,7 @@ function generateDomTree(specificStock, stockView) {
     domPortfolioViewQtyInput.setAttribute('id', 'portfolioStockQty');
     domPortfolioViewQtyInput.setAttribute('name', 'domPortfolioViewQtyInput');
     domPortfolioViewQtyInput.setAttribute('class', 'portfolio-input-width');
-    // domPortfolioViewQtyInput.setAttribute('placeholder', 'Add number of stocks');
     domEditPortfolioViewStockQtyDiv.appendChild(domPortfolioViewQtyInput);
-    /// //////////////
     var domEditPortfolioViewStockQtyPriceDiv = document.createElement('div');
     domEditPortfolioViewStockQtyPriceDiv.setAttribute('class', 'align-content-center width-100 button-space');
     domEditPortfolioForm.appendChild(domEditPortfolioViewStockQtyPriceDiv);
@@ -623,11 +602,8 @@ function generateDomTree(specificStock, stockView) {
     domPortfolioViewQtyPriceInput.setAttribute('id', 'portfolioStockQtyPrice');
     domPortfolioViewQtyPriceInput.setAttribute('name', 'domPortfolioViewQtyPriceInput');
     domPortfolioViewQtyPriceInput.setAttribute('class', 'portfolio-input-width');
-    // domPortfolioViewQtyPriceInput.setAttribute('placeholder', 'Add buying price of stock');
     domEditPortfolioViewStockQtyPriceDiv.appendChild(domPortfolioViewQtyPriceInput);
 
-    /// ///////////////
-    /// /
     var domEditPortfolioViewPortfolioDiv = document.createElement('div');
     domEditPortfolioViewPortfolioDiv.setAttribute('class', 'align-content-center width-100 button-space');
     domEditPortfolioForm.appendChild(domEditPortfolioViewPortfolioDiv);
@@ -660,7 +636,6 @@ function generateDomTree(specificStock, stockView) {
         var fetchedStockPrice = data.portfolioEntries[i].stockPrice;
       }
     }
-    // console.log(fetchedStockQty);
     $getPortfolioStockQty.value = parseInt(fetchedStockQty);
     $getportfolioStockQtyPrice.value = parseFloat(fetchedStockPrice);
 
