@@ -14,6 +14,8 @@ var $displayStockContent = document.querySelector('.displayStockContent');
 var $displayTable = document.querySelector('.displayTable');
 var $displayWatchListTable = document.querySelector('.displayWatchListTable');
 var $displayPortfolioTable = document.querySelector('.displayPortfolioTable');
+var $stockHistory = document.querySelector('.stockHistory');
+var $crossCancelHistory = document.querySelector('.cross-cancel-history');
 
 var $watchlistNavBtn = document.querySelector('.watchlistNavBtn');
 var $portfolioNavBtn = document.querySelector('.portfolioNavBtn');
@@ -48,6 +50,12 @@ $seachBtn.addEventListener('click', seachStock);
 $displayTable.addEventListener('click', displayTableClick);
 $displayWatchListTable.addEventListener('click', displayWatchListTableClick);
 $displayPortfolioTable.addEventListener('click', displayPortfolioTableClick);
+$crossCancelHistory.addEventListener('click', crossCancelHistoryClick);
+
+function crossCancelHistoryClick() {
+  $stockHistory.className = 'stockHistory hidden';
+
+}
 
 $watchlistNavBtn.addEventListener('click', watchlistNavBtnClick);
 $portfolioNavBtn.addEventListener('click', portfolioNavBtnClick);
@@ -484,6 +492,7 @@ function generateDomTree(specificStock, stockView) {
   domViewStockDeatailCloseH3Value.setAttribute('class', 'previos-close');
   domViewStockDeatailCloseDiv.appendChild(domViewStockDeatailCloseH3Lable);
   domViewStockDeatailCloseDiv.appendChild(domViewStockDeatailCloseH3Value);
+  /// /////////////STOCK History////////////////////
   if (stockView === 'stock-view') {
     /// //////////WatchList Btn Div///////////////////
     var domViewWatchlistDiv = document.createElement('div');
@@ -640,6 +649,17 @@ function generateDomTree(specificStock, stockView) {
     $getportfolioStockQtyPrice.value = parseFloat(fetchedStockPrice);
 
   }
+  var domViewHistoryDiv = document.createElement('div');
+  domViewHistoryDiv.setAttribute('class', 'align-content-center width-100 button-space');
+  domViewStockDeatailDiv.appendChild(domViewHistoryDiv);
+
+  var domViewHistoryBtn = document.createElement('button');
+  domViewHistoryBtn.setAttribute('id', 'viewHistoryBtn');
+  domViewHistoryBtn.textContent = 'View History';
+  domViewHistoryDiv.appendChild(domViewHistoryBtn);
+
+  var $viewHistoryBtn = document.querySelector('#viewHistoryBtn');
+  $viewHistoryBtn.addEventListener('click', getStockNamePriceHistory);
   var $close = document.querySelector('#close');
   $close.addEventListener('click', closeSpecificStock);
   $container.appendChild($displayStockContent);
@@ -745,3 +765,47 @@ function switchView(view) {
   }
 }
 switchView(data.view);
+
+var stockHistoryPrice = [];
+var stockHistoryDate = [];
+
+function getStockNamePriceHistory() {
+  $stockHistory.className = 'stockHistory';
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=' + data.currentStock + '&apikey=0GXU3KBC6YFBOGIB');
+
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', getStockNamePriceDataHistory);
+  xhr.send();
+}
+
+function getStockNamePriceDataHistory(event) {
+  stockHistoryPrice = [];
+  stockHistoryDate = [];
+
+  for (var i in event.target.response['Monthly Time Series']) {
+    stockHistoryPrice.push(event.target.response['Monthly Time Series'][i]['4. close']);
+    stockHistoryDate.push(i);
+  }
+  _.reverse(stockHistoryPrice);
+  _.reverse(stockHistoryDate);
+  generateGraphHistory();
+}
+
+function generateGraphHistory() {
+  var $getStockName = document.querySelector('.stock-name');
+
+  var data1 = [
+    {
+      x: stockHistoryDate,
+      y: stockHistoryPrice,
+      type: 'scatter'
+    }
+  ];
+  var layout = {
+    title: $getStockName.textContent,
+    font: { size: 16 },
+    padding: 0
+  };
+  Plotly.newPlot('graphHistoryDiv', data1, layout, { responsive: true });
+}
