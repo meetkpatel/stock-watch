@@ -18,7 +18,7 @@
   width: 100%;
 }
 
-.portfolioBox {
+.portfolio-box {
   width: 20rem;
   min-height: 13rem;
   border: 2px solid black;
@@ -40,7 +40,7 @@
     width: 50%;
   }
 
-  .portfolioBox {
+  .portfolio-box {
     min-height: 9rem;
   }
 }

@@ -47,8 +47,15 @@ li {
   width: 100%;
 }
 
-.height500px {
-  height: 500px;
+.font-size-2rem {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0.8rem 0;
+}
+
+.font-size-1-2rem {
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 #close {
@@ -56,7 +63,7 @@ li {
   color: red;
 }
 
-#searchBar {
+#search-bar {
   font-size: 18px;
   margin-top: 3rem;
   width: 60%;
@@ -73,13 +80,7 @@ li {
   align-items: center;
 }
 
-.testBox {
-  width: 100%;
-  background-color: aquamarine;
-  height: 200px;
-}
-
-#seachBtn {
+#search-btn {
   margin-top: 3rem;
   height: 3rem;
   float: left;
@@ -187,7 +188,7 @@ h1 {
   margin: 0.3rem 0;
 }
 
-#watchListBtn {
+#watchlist-btn {
   height: 2.2rem;
   width: 10rem;
   background-color: #007bff;
@@ -197,7 +198,7 @@ h1 {
   font-size: 1rem;
 }
 
-#portfolioBtn {
+#portfolio-btn {
   text-align: center;
   height: 2.2rem;
   width: 10rem;
@@ -208,7 +209,7 @@ h1 {
   font-size: 1rem;
 }
 
-#viewHistoryBtn {
+#view-history-btn {
   text-align: center;
   height: 2.2rem;
   width: 10rem;
@@ -219,7 +220,7 @@ h1 {
   font-size: 1rem;
 }
 
-#deleteBtn {
+#delete-btn {
   height: 2.2rem;
   width: 10rem;
   background-color: #d44545;
@@ -229,9 +230,9 @@ h1 {
   font-size: 1rem;
 }
 
-.homeBtn,
-.watchlistNavBtn,
-.portfolioNavBtn:hover {
+.home-btn,
+.watchlist-nav-btn,
+.portfolio-nav-btn:hover {
   cursor: pointer;
 }
 
@@ -263,65 +264,77 @@ h1 {
   align-content: center;
 }
 
-.displayWatchListTable tr td {
+.display-watchlist-table tr td {
   padding-left: 2rem;
-  padding-right: 2rem;
 }
 
-.watchlistNameTd h4 {
+.watchlist-name-td h4 {
   display: inline-block;
 }
 
-.displayWatchListTable tr td h4 {
+.display-watchlist-table tr td h4 {
   font-size: 1.2rem;
   margin: 0.5rem;
   font-family: 'Yaldevi', sans-serif;
 }
 
-.displayPortfolioTable tr td h6 {
+.display-portfolio-table tr td h6 {
   margin: 0.3rem;
   font-family: 'Yaldevi', sans-serif;
 }
 
-.displayPortfolioTable tr td h5 {
+.display-portfolio-table tr td h5 {
   margin: 0.3rem;
   font-family: 'Yaldevi', sans-serif;
 }
 
-.watchlistNameTd {
+.watchlist-name-td {
   width: 70%;
 }
 
-.watchlistPriceTd {
+.watchlist-price-td {
   min-width: 220px;
   width: 30%;
 }
 
-.portfolioStockDetailTd {
+.portfolio-stock-detail-td {
   width: 70%;
 }
 
-.portfolioStockPriceTd {
+.portfolio-stock-price-td {
   padding-left: 5rem;
   min-width: 220px;
   width: 30%;
   text-align: center;
 }
 
-.textCenter {
+.text-center {
   text-align: center;
 }
 
-.watchlistNameTd h4:hover {
+.watchlist-name-td a {
+  font-size: 1.3rem;
+  font-family: 'Yaldevi', sans-serif;
+  font-weight: bold;
+}
+
+.portfolio-stock-detail-td a {
+  font-size: 1.3rem;
+  font-family: 'Yaldevi', sans-serif;
+  font-weight: bold;
+  padding-left: 0.2rem;
+}
+
+.watchlist-name-td a:hover {
   cursor: pointer;
 }
 
-.portfolioStockDetailTd h5:hover {
+.portfolio-stock-detail-td a:hover {
   cursor: pointer;
 }
 
-.cancelationPage,
-.stockAlreadyAlert {
+.cancelation-page,
+.stock-already-alert {
   height: 100vh;
   width: 100%;
   position: fixed;
@@ -329,7 +342,7 @@ h1 {
   background: rgba(0, 0, 0, 0.5);
 }
 
-.stockHistory {
+.stock-history {
   height: 100vh;
   width: 100%;
   position: fixed;
@@ -337,11 +350,11 @@ h1 {
   background: rgba(0, 0, 0, 0.8);
 }
 
-.fullScreen {
+.full-screen {
   height: 100vh;
 }
 
-.cancelBox {
+.cancel-box {
   height: 150px;
   width: 420px;
   background-color: white;
@@ -351,7 +364,7 @@ h1 {
   text-align: center;
 }
 
-.historyBox {
+.history-box {
   height: 480px;
   width: 90%;
   background-color: white;
@@ -370,7 +383,7 @@ h1 {
   margin-top: 20px;
 }
 
-.cancelBtnModal {
+.cancel-btn-modal {
   background-color: rgb(167, 164, 164);
   color: black;
   height: 2rem;
@@ -379,7 +392,7 @@ h1 {
   border-radius: 5px;
 }
 
-.closeAlertBtnModal {
+.close-alert-btn-modal {
   background-color: rgb(167, 164, 164);
   color: black;
   height: 2rem;
@@ -388,7 +401,7 @@ h1 {
   border-radius: 5px;
 }
 
-.deleteBtnConfirm {
+.delete-btn-confirm {
   background-color: rgb(212, 24, 24);
   color: white;
   height: 2rem;
@@ -402,7 +415,7 @@ h1 {
   padding-right: 5rem;
 }
 
-.watchlistNavBtn {
+.watchlist-nav-btn {
   margin-right: 1.7rem;
 }
 
@@ -411,7 +424,7 @@ h1 {
   height: 2rem;
 }
 
-.portfolioBox h3 {
+.portfolio-box h3 {
   margin: 0.5rem;
 }
 

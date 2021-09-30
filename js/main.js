@@ -1,7 +1,7 @@
 /* global _ */
 /* global Plotly */
-var $seachBar = document.querySelector('#searchBar');
-var $seachBtn = document.querySelector('#seachBtn');
+var $seachBar = document.querySelector('#search-bar');
+var $seachBtn = document.querySelector('#search-btn');
 var $tbody = document.querySelector('tbody');
 var $stockName = '';
 var $stockCurrentPrice = '';
@@ -12,20 +12,20 @@ var $todayOpen = '';
 var $PreviosClose = '';
 var $displayStockContent = document.querySelector('.displayStockContent');
 var $displayTable = document.querySelector('.displayTable');
-var $displayWatchListTable = document.querySelector('.displayWatchListTable');
-var $displayPortfolioTable = document.querySelector('.displayPortfolioTable');
-var $stockHistory = document.querySelector('.stockHistory');
+var $displayWatchListTable = document.querySelector('.display-watchlist-table');
+var $displayPortfolioTable = document.querySelector('.display-portfolio-table');
+var $stockHistory = document.querySelector('.stock-history');
 var $crossCancelHistory = document.querySelector('.cross-cancel-history');
 
-var $watchlistNavBtn = document.querySelector('.watchlistNavBtn');
-var $portfolioNavBtn = document.querySelector('.portfolioNavBtn');
-var $homeBtn = document.querySelector('.homeBtn');
+var $watchlistNavBtn = document.querySelector('.watchlist-nav-btn');
+var $portfolioNavBtn = document.querySelector('.portfolio-nav-btn');
+var $homeBtn = document.querySelector('.home-btn');
 var $searchSeaction = document.querySelector('.searchSeaction');
-var $cancelationPage = document.querySelector('.cancelationPage');
-var $stockAlreadyAlert = document.querySelector('.stockAlreadyAlert');
-var $deleteBtnConfirm = document.querySelector('.deleteBtnConfirm');
-var $cancelBtnModal = document.querySelector('.cancelBtnModal');
-var $closeAlertBtnModal = document.querySelector('.closeAlertBtnModal');
+var $cancelationPage = document.querySelector('.cancelation-page');
+var $stockAlreadyAlert = document.querySelector('.stock-already-alert');
+var $deleteBtnConfirm = document.querySelector('.delete-btn-confirm');
+var $cancelBtnModal = document.querySelector('.cancel-btn-modal');
+var $closeAlertBtnModal = document.querySelector('.close-alert-btn-modal');
 var $container = document.querySelector('.main-container');
 
 var $H3PortfolioInvested = document.querySelector('.H3PortfolioInvested');
@@ -53,7 +53,7 @@ $displayPortfolioTable.addEventListener('click', displayPortfolioTableClick);
 $crossCancelHistory.addEventListener('click', crossCancelHistoryClick);
 
 function crossCancelHistoryClick() {
-  $stockHistory.className = 'stockHistory hidden';
+  $stockHistory.className = 'stock-history hidden';
 
 }
 
@@ -66,21 +66,21 @@ $cancelBtnModal.addEventListener('click', cancelBtnModalClick);
 $closeAlertBtnModal.addEventListener('click', closeAlertBtnModalClick);
 
 function deleteBtnClick() {
-  $cancelationPage.className = 'cancelationPage';
+  $cancelationPage.className = 'cancelation-page';
 }
 
 function cancelBtnModalClick() {
-  $cancelationPage.className = 'cancelationPage hidden';
+  $cancelationPage.className = 'cancelation-page hidden';
 }
 function deleteBtnConfirmClick() {
   if (data.view === 'watchlist-stock-view') {
-    $cancelationPage.className = 'cancelationPage hidden';
+    $cancelationPage.className = 'cancelation-page hidden';
     data.watchlistEntries.splice(data.watchlistEntries.indexOf(data.currentStock), 1);
     data.currentStock = null;
     switchView('watchlist-view');
   } else {
     for (var i = 0; i < data.portfolioEntries.length; i++) {
-      $cancelationPage.className = 'cancelationPage hidden';
+      $cancelationPage.className = 'cancelation-page hidden';
       if (data.portfolioEntries[i].stockName === data.currentStock) {
         data.portfolioEntries.splice(i, 1);
         data.currentStock = null;
@@ -90,7 +90,7 @@ function deleteBtnConfirmClick() {
   }
 }
 function closeAlertBtnModalClick() {
-  $stockAlreadyAlert.className = 'stockAlreadyAlert hidden';
+  $stockAlreadyAlert.className = 'stock-already-alert hidden';
 }
 
 function portfolioAddBtnClick(event) {
@@ -98,7 +98,7 @@ function portfolioAddBtnClick(event) {
   if (data.view !== 'portfolio-edit-stock-view') {
     for (var i = 0; i < data.portfolioEntries.length; i++) {
       if (data.portfolioEntries[i].stockName === data.currentStock) {
-        $stockAlreadyAlert.className = 'stockAlreadyAlert';
+        $stockAlreadyAlert.className = 'stock-already-alert';
         return;
       }
     }
@@ -149,7 +149,7 @@ function watchListBtnClick(event) {
 function portfolioBtnClick(event) {
   for (var i = 0; i < data.portfolioEntries.length; i++) {
     if (data.portfolioEntries[i].stockName === data.currentStock) {
-      $stockAlreadyAlert.className = 'stockAlreadyAlert';
+      $stockAlreadyAlert.className = 'stock-already-alert';
       return;
     }
   }
@@ -205,23 +205,23 @@ function watchListgenerate(stockfetch) {
     var $watchListTdName = document.createElement('td');
     var $watchListTdPrice = document.createElement('td');
     var $watchListDiv = document.createElement('div');
-    var $watchListH4Name = document.createElement('h4');
+    var $watchListAName = document.createElement('a');
     var $watchListH4Price = document.createElement('h4');
     var $watchListH4Change = document.createElement('h4');
 
-    $watchListTdName.setAttribute('class', 'watchlistNameTd');
-    $watchListTdPrice.setAttribute('class', 'watchlistPriceTd');
-    $watchListDiv.setAttribute('class', 'textCenter');
-    $watchListH4Name.setAttribute('watchlist-symbol', stockfetch);
+    $watchListTdName.setAttribute('class', 'watchlist-name-td');
+    $watchListTdPrice.setAttribute('class', 'watchlist-price-td');
+    $watchListDiv.setAttribute('class', 'text-center');
+    $watchListAName.setAttribute('watchlist-symbol', stockfetch);
 
     $watchListTr.appendChild($watchListTdName);
-    $watchListTdName.appendChild($watchListH4Name);
+    $watchListTdName.appendChild($watchListAName);
     $watchListTr.appendChild($watchListTdPrice);
     $watchListTdPrice.appendChild($watchListDiv);
     $watchListDiv.appendChild($watchListH4Price);
     $watchListDiv.appendChild($watchListH4Change);
 
-    $watchListH4Name.textContent = xhr.response.companyName;
+    $watchListAName.textContent = xhr.response.companyName;
     $watchListH4Price.textContent = xhr.response.latestPrice;
     $watchListH4Change.textContent = xhr.response.change + ' (' + (parseFloat(xhr.response.changePercent) * 100).toFixed(2) + '%)';
     var change = '' + xhr.response.change;
@@ -324,7 +324,7 @@ function generateDomPortfoliolist(event) {
   var $tr = document.createElement('tr');
 
   var $tdStockDetails = document.createElement('td');
-  $tdStockDetails.setAttribute('class', 'portfolioStockDetailTd');
+  $tdStockDetails.setAttribute('class', 'portfolio-stock-detail-td');
   $tr.appendChild($tdStockDetails);
 
   var $h6Qty = document.createElement('h6');
@@ -332,19 +332,19 @@ function generateDomPortfoliolist(event) {
   $h6Qty.textContent = 'Qty: ' + portfolioCurrentStockQty;
   $tdStockDetails.appendChild($h6Qty);
 
-  var $h5Name = document.createElement('h5');
-  $h5Name.setAttribute('class', 'h5Name');
-  $h5Name.setAttribute('stock-symbol', portfolioCurrentSymbol);
+  var $aName = document.createElement('a');
+  $aName.setAttribute('class', 'aName');
+  $aName.setAttribute('stock-symbol', portfolioCurrentSymbol);
 
-  $h5Name.textContent = portfolioCurrentName;
-  $tdStockDetails.appendChild($h5Name);
+  $aName.textContent = portfolioCurrentName;
+  $tdStockDetails.appendChild($aName);
 
   var $h6Invested = document.createElement('h6');
   $h6Invested.setAttribute('class', 'h6Invested');
   $h6Invested.textContent = 'Buying Price: ' + portfolioCurrentStockPrice;
   $tdStockDetails.appendChild($h6Invested);
   var $tdStockPrice = document.createElement('td');
-  $tdStockPrice.setAttribute('class', 'portfolioStockPriceTd');
+  $tdStockPrice.setAttribute('class', 'portfolio-stock-price-td');
   $tr.appendChild($tdStockPrice);
 
   var $h6Percent = document.createElement('h6');
@@ -400,7 +400,7 @@ function generateDomTree(specificStock, stockView) {
   domViewDiv.setAttribute('class', 'view');
   domViewDiv.setAttribute('data-view', stockView);
   $displayStockContent.appendChild(domViewDiv);
-  /// ////////////////ROW STOCK NAME/////////////////////////
+
   var domViewRowStockName = document.createElement('div');
   domViewRowStockName.setAttribute('class', 'row');
   domViewDiv.appendChild(domViewRowStockName);
@@ -416,7 +416,7 @@ function generateDomTree(specificStock, stockView) {
   domViewRowStockNameI.setAttribute('id', 'close');
   domViewRowStockNameI.setAttribute('class', 'fa fa-times margin-right');
   domViewRowStockNameFullCol.appendChild(domViewRowStockNameI);
-  /// ////////////////ROW STOCK PRICE///////////////////////////
+
   var domViewRowStockPrice = document.createElement('div');
   domViewRowStockPrice.setAttribute('class', 'row');
   domViewDiv.appendChild(domViewRowStockPrice);
@@ -431,7 +431,7 @@ function generateDomTree(specificStock, stockView) {
   domViewRowStockPrice2H3.setAttribute('id', 'stock-current-price-2');
   domViewRowStockPriceFullCol.appendChild(domViewRowStockPrice1H3);
   domViewRowStockPriceFullCol.appendChild(domViewRowStockPrice2H3);
-  /// //////////////////Graph Row/////////////////////
+
   var domViewGraphDiv = document.createElement('div');
   domViewGraphDiv.setAttribute('class', 'row');
   domViewDiv.appendChild(domViewGraphDiv);
@@ -444,11 +444,11 @@ function generateDomTree(specificStock, stockView) {
   domViewGraphPlotDiv.setAttribute('id', 'graphPlot');
   domViewGraphPlotDiv.setAttribute('class', 'width: 100%; height: 380px;');
   domViewGraphDivFullCol.appendChild(domViewGraphPlotDiv);
-  /// ////////////////Stock Deatils//////////////////
+
   var domViewStockDeatailDiv = document.createElement('div');
   domViewStockDeatailDiv.setAttribute('class', 'column-half padding-top');
   domViewGraphDiv.appendChild(domViewStockDeatailDiv);
-  /// //////////////STOCK HIGH//////////////////////
+
   var domViewStockDeatailHighDiv = document.createElement('div');
   domViewStockDeatailHighDiv.setAttribute('class', 'align-content-space-between h3-margin-top-bottom');
   domViewStockDeatailDiv.appendChild(domViewStockDeatailHighDiv);
@@ -459,7 +459,7 @@ function generateDomTree(specificStock, stockView) {
   domViewStockDeatailHighH3Value.setAttribute('class', 'today-high');
   domViewStockDeatailHighDiv.appendChild(domViewStockDeatailHighH3Lable);
   domViewStockDeatailHighDiv.appendChild(domViewStockDeatailHighH3Value);
-  /// /////////////STOCK LOW////////////////////
+
   var domViewStockDeatailLowDiv = document.createElement('div');
   domViewStockDeatailLowDiv.setAttribute('class', 'align-content-space-between h3-margin-top-bottom');
   domViewStockDeatailDiv.appendChild(domViewStockDeatailLowDiv);
@@ -470,7 +470,7 @@ function generateDomTree(specificStock, stockView) {
   domViewStockDeatailLowH3Value.setAttribute('class', 'today-low');
   domViewStockDeatailLowDiv.appendChild(domViewStockDeatailLowH3Lable);
   domViewStockDeatailLowDiv.appendChild(domViewStockDeatailLowH3Value);
-  /// /////////////STOCK Open////////////////////
+
   var domViewStockDeatailOpenDiv = document.createElement('div');
   domViewStockDeatailOpenDiv.setAttribute('class', 'align-content-space-between h3-margin-top-bottom');
   domViewStockDeatailDiv.appendChild(domViewStockDeatailOpenDiv);
@@ -481,7 +481,7 @@ function generateDomTree(specificStock, stockView) {
   domViewStockDeatailOpenH3Value.setAttribute('class', 'today-open');
   domViewStockDeatailOpenDiv.appendChild(domViewStockDeatailOpenH3Lable);
   domViewStockDeatailOpenDiv.appendChild(domViewStockDeatailOpenH3Value);
-  /// /////////////STOCK Close////////////////////
+
   var domViewStockDeatailCloseDiv = document.createElement('div');
   domViewStockDeatailCloseDiv.setAttribute('class', 'align-content-space-between h3-margin-top-bottom');
   domViewStockDeatailDiv.appendChild(domViewStockDeatailCloseDiv);
@@ -492,39 +492,39 @@ function generateDomTree(specificStock, stockView) {
   domViewStockDeatailCloseH3Value.setAttribute('class', 'previos-close');
   domViewStockDeatailCloseDiv.appendChild(domViewStockDeatailCloseH3Lable);
   domViewStockDeatailCloseDiv.appendChild(domViewStockDeatailCloseH3Value);
-  /// /////////////STOCK History////////////////////
+
   if (stockView === 'stock-view') {
-    /// //////////WatchList Btn Div///////////////////
+
     var domViewWatchlistDiv = document.createElement('div');
     domViewWatchlistDiv.setAttribute('class', 'align-content-center width-100 button-space');
     domViewStockDeatailDiv.appendChild(domViewWatchlistDiv);
 
     var domViewWatchlistBtn = document.createElement('button');
-    domViewWatchlistBtn.setAttribute('id', 'watchListBtn');
+    domViewWatchlistBtn.setAttribute('id', 'watchlist-btn');
     domViewWatchlistBtn.textContent = 'Add to Watchlist';
     domViewWatchlistDiv.appendChild(domViewWatchlistBtn);
-    /// ////////////Portfolio Btn Div//////////////////////
+
     var domViewPortfolioDiv = document.createElement('div');
     domViewPortfolioDiv.setAttribute('class', 'align-content-center width-100 button-space');
     domViewStockDeatailDiv.appendChild(domViewPortfolioDiv);
 
     var domViewPortfolioBtn = document.createElement('button');
-    domViewPortfolioBtn.setAttribute('id', 'portfolioBtn');
+    domViewPortfolioBtn.setAttribute('id', 'portfolio-btn');
     domViewPortfolioBtn.textContent = 'Add to Portfolio';
     domViewPortfolioDiv.appendChild(domViewPortfolioBtn);
-    /// /action////
-    var $watchListBtn = document.querySelector('#watchListBtn');
+
+    var $watchListBtn = document.querySelector('#watchlist-btn');
     $watchListBtn.addEventListener('click', watchListBtnClick);
-    var $portfolioBtn = document.querySelector('#portfolioBtn');
+    var $portfolioBtn = document.querySelector('#portfolio-btn');
     $portfolioBtn.addEventListener('click', portfolioBtnClick);
   } else if (stockView === 'watchlist-stock-view') {
-    /// ////////////Portfolio Btn Div//////////////////////
+
     var domWatchlistViewPortfolioDiv = document.createElement('div');
     domWatchlistViewPortfolioDiv.setAttribute('class', 'align-content-center width-100 button-space');
     domViewStockDeatailDiv.appendChild(domWatchlistViewPortfolioDiv);
 
     var domWatchlistViewPortfolioBtn = document.createElement('button');
-    domWatchlistViewPortfolioBtn.setAttribute('id', 'portfolioBtn');
+    domWatchlistViewPortfolioBtn.setAttribute('id', 'portfolio-btn');
     domWatchlistViewPortfolioBtn.textContent = 'Add to Portfolio';
     domWatchlistViewPortfolioDiv.appendChild(domWatchlistViewPortfolioBtn);
 
@@ -533,17 +533,16 @@ function generateDomTree(specificStock, stockView) {
     domViewStockDeatailDiv.appendChild(domViewDeleteDiv);
 
     var domViewWatchDeleteBtn = document.createElement('button');
-    domViewWatchDeleteBtn.setAttribute('id', 'deleteBtn');
+    domViewWatchDeleteBtn.setAttribute('id', 'delete-btn');
     domViewWatchDeleteBtn.textContent = 'Delete';
     domViewDeleteDiv.appendChild(domViewWatchDeleteBtn);
-    /// /action////
-    var $watchlistportfolioBtn = document.querySelector('#portfolioBtn');
+
+    var $watchlistportfolioBtn = document.querySelector('#portfolio-btn');
     $watchlistportfolioBtn.addEventListener('click', portfolioBtnClick);
-    var $deleteBtn = document.querySelector('#deleteBtn');
+    var $deleteBtn = document.querySelector('#delete-btn');
     $deleteBtn.addEventListener('click', deleteBtnClick);
 
   } else if (stockView === 'portfolio-stock-view') {
-    /// ////////////Portfolio Btn Div//////////////////////
 
     var domPortfolioForm = document.createElement('form');
     domPortfolioForm.setAttribute('id', 'portfolioForm');
@@ -577,16 +576,14 @@ function generateDomTree(specificStock, stockView) {
     domPortfolioForm.appendChild(domPortfolioViewPortfolioDiv);
 
     var domPortfolioViewPortfolioBtn = document.createElement('button');
-    domPortfolioViewPortfolioBtn.setAttribute('id', 'portfolioBtn');
+    domPortfolioViewPortfolioBtn.setAttribute('id', 'portfolio-btn');
     domPortfolioViewPortfolioBtn.setAttribute('type', 'submit');
     domPortfolioViewPortfolioBtn.textContent = 'Add to Portfolio';
     domPortfolioViewPortfolioDiv.appendChild(domPortfolioViewPortfolioBtn);
 
-    /// ////action////
     $portfolioAddBtn = document.querySelector('#portfolioForm');
     $portfolioAddBtn.addEventListener('submit', portfolioAddBtnClick);
   } else if (stockView === 'portfolio-edit-stock-view') {
-    /// ////////////Portfolio Btn Div//////////////////////
 
     var domEditPortfolioForm = document.createElement('form');
     domEditPortfolioForm.setAttribute('id', 'portfolioForm');
@@ -618,7 +615,7 @@ function generateDomTree(specificStock, stockView) {
     domEditPortfolioForm.appendChild(domEditPortfolioViewPortfolioDiv);
 
     var domEditPortfolioViewPortfolioBtn = document.createElement('button');
-    domEditPortfolioViewPortfolioBtn.setAttribute('id', 'portfolioBtn');
+    domEditPortfolioViewPortfolioBtn.setAttribute('id', 'portfolio-btn');
     domEditPortfolioViewPortfolioBtn.setAttribute('type', 'submit');
     domEditPortfolioViewPortfolioBtn.textContent = 'Add to Portfolio';
     domEditPortfolioViewPortfolioDiv.appendChild(domEditPortfolioViewPortfolioBtn);
@@ -628,13 +625,13 @@ function generateDomTree(specificStock, stockView) {
     domViewStockDeatailDiv.appendChild(domEditPortfolioViewDeleteDiv);
 
     var domEditPortfolioViewWatchDeleteBtn = document.createElement('button');
-    domEditPortfolioViewWatchDeleteBtn.setAttribute('id', 'deleteBtn');
+    domEditPortfolioViewWatchDeleteBtn.setAttribute('id', 'delete-btn');
     domEditPortfolioViewWatchDeleteBtn.textContent = 'Delete';
     domEditPortfolioViewDeleteDiv.appendChild(domEditPortfolioViewWatchDeleteBtn);
-    /// ////action////
+
     $portfolioAddBtn = document.querySelector('#portfolioForm');
     $portfolioAddBtn.addEventListener('submit', portfolioAddBtnClick);
-    var $editPortfoliodeleteBtn = document.querySelector('#deleteBtn');
+    var $editPortfoliodeleteBtn = document.querySelector('#delete-btn');
     $editPortfoliodeleteBtn.addEventListener('click', deleteBtnClick);
 
     var $getPortfolioStockQty = document.querySelector('#portfolioStockQty');
@@ -654,11 +651,11 @@ function generateDomTree(specificStock, stockView) {
   domViewStockDeatailDiv.appendChild(domViewHistoryDiv);
 
   var domViewHistoryBtn = document.createElement('button');
-  domViewHistoryBtn.setAttribute('id', 'viewHistoryBtn');
+  domViewHistoryBtn.setAttribute('id', 'view-history-btn');
   domViewHistoryBtn.textContent = 'View History';
   domViewHistoryDiv.appendChild(domViewHistoryBtn);
 
-  var $viewHistoryBtn = document.querySelector('#viewHistoryBtn');
+  var $viewHistoryBtn = document.querySelector('#view-history-btn');
   $viewHistoryBtn.addEventListener('click', getStockNamePriceHistory);
   var $close = document.querySelector('#close');
   $close.addEventListener('click', closeSpecificStock);
@@ -770,7 +767,7 @@ var stockHistoryPrice = [];
 var stockHistoryDate = [];
 
 function getStockNamePriceHistory() {
-  $stockHistory.className = 'stockHistory';
+  $stockHistory.className = 'stock-history';
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=' + data.currentStock + '&apikey=0GXU3KBC6YFBOGIB');
 
