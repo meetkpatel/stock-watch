@@ -16,6 +16,8 @@ var $displayWatchListTable = document.querySelector('.display-watchlist-table');
 var $displayPortfolioTable = document.querySelector('.display-portfolio-table');
 var $stockHistory = document.querySelector('.stock-history');
 var $crossCancelHistory = document.querySelector('.cross-cancel-history');
+var $noDataFound = document.querySelector('.no-data-found');
+var $noStockSearch = document.querySelector('.no-stock-search');
 
 var $watchlistNavBtn = document.querySelector('.watchlist-nav-btn');
 var $portfolioNavBtn = document.querySelector('.portfolio-nav-btn');
@@ -31,6 +33,7 @@ var $container = document.querySelector('.main-container');
 var $H3PortfolioInvested = document.querySelector('.H3PortfolioInvested');
 var $H3PortfolioCurrent = document.querySelector('.H3PortfolioCurrent');
 var $H3PLStatement = document.querySelector('.H3PLStatement');
+var $loadingFullPage = document.querySelector('.loading-full-page');
 
 var searchListSymbol = [];
 var searchListName = [];
@@ -161,6 +164,9 @@ function watchlistNavBtnClick(event) {
   totalInvestment = 0;
   totalValue = 0;
   data.currentStock = null;
+  $noStockSearch.className = 'font-family-yaldevi no-stock-search hidden';
+  $noDataFound.className = 'no-data-found hidden';
+
   switchView('watchlist-view');
 }
 
@@ -169,20 +175,29 @@ function portfolioNavBtnClick(event) {
   totalInvestment = 0;
   totalValue = 0;
   data.currentStock = null;
+  $noStockSearch.className = 'font-family-yaldevi no-stock-search hidden';
+  $noDataFound.className = 'no-data-found hidden';
+
   switchView('portfoliolist-view');
 }
 
 function homeBtnClick(event) {
   $seachBar.value = '';
   data.currentStock = null;
+  $noStockSearch.className = 'font-family-yaldevi no-stock-search';
+  $noDataFound.className = 'no-data-found hidden';
   switchView('home-view');
 }
 
 function closeSpecificStock() {
   $seachBar.value = '';
+  $noStockSearch.className = 'font-family-yaldevi no-stock-search';
   switchView('home-view');
 }
 function seachStock(event) {
+  $noDataFound.className = 'no-data-found hidden';
+  $noStockSearch.className = 'font-family-yaldevi no-stock-search hidden';
+
   seachStockAPI($seachBar.value);
   switchView('search-view');
 }
@@ -391,9 +406,10 @@ function showList() {
 }
 function generateDomTree(specificStock, stockView) {
   $displayStockContent.remove();
+  $loadingFullPage.className = 'loading-full-page';
 
   $displayStockContent = document.createElement('div');
-  $displayStockContent.setAttribute('class', 'displayStockContent');
+  $displayStockContent.setAttribute('class', 'displayStockContent hidden');
   $container.appendChild($displayStockContent);
 
   var domViewDiv = document.createElement('div');
@@ -437,16 +453,16 @@ function generateDomTree(specificStock, stockView) {
   domViewDiv.appendChild(domViewGraphDiv);
 
   var domViewGraphDivFullCol = document.createElement('div');
-  domViewGraphDivFullCol.setAttribute('class', 'column-half padding-bottom');
+  domViewGraphDivFullCol.setAttribute('class', 'column-two-third');
   domViewGraphDiv.appendChild(domViewGraphDivFullCol);
 
   var domViewGraphPlotDiv = document.createElement('div');
   domViewGraphPlotDiv.setAttribute('id', 'graphPlot');
-  domViewGraphPlotDiv.setAttribute('class', 'width: 100%; height: 380px;');
+  domViewGraphPlotDiv.setAttribute('class', 'width: 100%; height: 380px; graph-height-div');
   domViewGraphDivFullCol.appendChild(domViewGraphPlotDiv);
 
   var domViewStockDeatailDiv = document.createElement('div');
-  domViewStockDeatailDiv.setAttribute('class', 'column-half padding-top');
+  domViewStockDeatailDiv.setAttribute('class', 'column-one-third padding-top');
   domViewGraphDiv.appendChild(domViewStockDeatailDiv);
 
   var domViewStockDeatailHighDiv = document.createElement('div');
@@ -553,8 +569,10 @@ function generateDomTree(specificStock, stockView) {
     domPortfolioForm.appendChild(domPortfolioViewStockQtyDiv);
 
     domPortfolioViewQtyInput = document.createElement('input');
-    domPortfolioViewQtyInput.setAttribute('type', 'text');
+    domPortfolioViewQtyInput.setAttribute('type', 'number');
     domPortfolioViewQtyInput.setAttribute('id', 'portfolioStockQty');
+    domPortfolioViewQtyInput.setAttribute('min', '1');
+    domPortfolioViewQtyInput.setAttribute('required', true);
     domPortfolioViewQtyInput.setAttribute('name', 'domPortfolioViewQtyInput');
     domPortfolioViewQtyInput.setAttribute('class', 'portfolio-input-width');
     domPortfolioViewQtyInput.setAttribute('placeholder', 'Add number of stocks');
@@ -564,8 +582,11 @@ function generateDomTree(specificStock, stockView) {
     domPortfolioForm.appendChild(domPortfolioViewStockQtyPriceDiv);
 
     domPortfolioViewQtyPriceInput = document.createElement('input');
-    domPortfolioViewQtyPriceInput.setAttribute('type', 'text');
+    domPortfolioViewQtyPriceInput.setAttribute('type', 'number');
     domPortfolioViewQtyPriceInput.setAttribute('id', 'portfolioStockQty');
+    domPortfolioViewQtyPriceInput.setAttribute('min', '1');
+    domPortfolioViewQtyPriceInput.setAttribute('required', true);
+
     domPortfolioViewQtyPriceInput.setAttribute('name', 'domPortfolioViewQtyPriceInput');
     domPortfolioViewQtyPriceInput.setAttribute('class', 'portfolio-input-width');
     domPortfolioViewQtyPriceInput.setAttribute('placeholder', 'Add buying price of stock');
@@ -594,8 +615,11 @@ function generateDomTree(specificStock, stockView) {
     domEditPortfolioForm.appendChild(domEditPortfolioViewStockQtyDiv);
 
     domPortfolioViewQtyInput = document.createElement('input');
-    domPortfolioViewQtyInput.setAttribute('type', 'text');
+    domPortfolioViewQtyInput.setAttribute('type', 'number');
     domPortfolioViewQtyInput.setAttribute('id', 'portfolioStockQty');
+    domPortfolioViewQtyInput.setAttribute('min', '1');
+    domPortfolioViewQtyInput.setAttribute('required', true);
+
     domPortfolioViewQtyInput.setAttribute('name', 'domPortfolioViewQtyInput');
     domPortfolioViewQtyInput.setAttribute('class', 'portfolio-input-width');
     domEditPortfolioViewStockQtyDiv.appendChild(domPortfolioViewQtyInput);
@@ -604,8 +628,11 @@ function generateDomTree(specificStock, stockView) {
     domEditPortfolioForm.appendChild(domEditPortfolioViewStockQtyPriceDiv);
 
     domPortfolioViewQtyPriceInput = document.createElement('input');
-    domPortfolioViewQtyPriceInput.setAttribute('type', 'text');
+    domPortfolioViewQtyPriceInput.setAttribute('type', 'number');
     domPortfolioViewQtyPriceInput.setAttribute('id', 'portfolioStockQtyPrice');
+    domPortfolioViewQtyPriceInput.setAttribute('min', '1');
+    domPortfolioViewQtyPriceInput.setAttribute('required', true);
+
     domPortfolioViewQtyPriceInput.setAttribute('name', 'domPortfolioViewQtyPriceInput');
     domPortfolioViewQtyPriceInput.setAttribute('class', 'portfolio-input-width');
     domEditPortfolioViewStockQtyPriceDiv.appendChild(domPortfolioViewQtyPriceInput);
@@ -679,6 +706,13 @@ function getStockNamePrice(specificStock) {
 }
 
 function getStockNamePriceData(event) {
+  if (event.target.status !== 200 || event.target.response.calculationPrice === 'previousclose') {
+    $seachBar.value = '';
+    $noDataFound.className = 'no-data-found';
+    $noStockSearch.className = 'font-family-yaldevi no-stock-search hidden';
+    switchView('home-view');
+    return;
+  }
   $stockName.textContent = event.target.response.companyName;
   $PreviosClose.textContent = event.target.response.previousClose;
   var change = '' + event.target.response.change;
@@ -733,10 +767,15 @@ function generateGraph() {
     font: { size: 14 },
     padding: 0
   };
+
+  $loadingFullPage.className = 'loading-full-page hidden';
+  $displayStockContent.className = 'displayStockContent';
   Plotly.newPlot('graphPlot', data1, layout, { responsive: true });
 }
 
 function switchView(view) {
+  $loadingFullPage.className = 'loading-full-page hidden';
+
   var $view = document.querySelectorAll('.view');
   data.view = view;
   for (var i = 0; i < $view.length; i++) {
