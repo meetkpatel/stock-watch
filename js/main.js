@@ -706,7 +706,7 @@ function getStockNamePrice(specificStock) {
 }
 
 function getStockNamePriceData(event) {
-  if (event.target.response.calculationPrice === 'previousclose') {
+  if (event.target.status !== 200 || event.target.response.calculationPrice === 'previousclose') {
     $seachBar.value = '';
     $noDataFound.className = 'no-data-found';
     $noStockSearch.className = 'font-family-yaldevi no-stock-search hidden';
