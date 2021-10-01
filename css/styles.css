@@ -24,6 +24,11 @@ header {
   font-family: 'Yaldevi', sans-serif;
 }
 
+.column-one-third h3,
+.column-two-third h3 {
+  font-family: 'Yaldevi', sans-serif;
+}
+
 ul,
 li {
   list-style: none;
@@ -65,7 +70,7 @@ li {
 
 #search-bar {
   font-size: 18px;
-  margin-top: 3rem;
+  margin-top: 1.7rem;
   width: 60%;
   height: 3rem;
   border: 1px solid grey;
@@ -81,7 +86,7 @@ li {
 }
 
 #search-btn {
-  margin-top: 3rem;
+  margin-top: 1.7rem;
   height: 3rem;
   float: left;
   width: 7%;
@@ -128,6 +133,30 @@ tr:nth-child(odd) {
   background-color: rgba(120, 189, 93, 0.3);
 }
 
+.cross-cancel-history {
+  color: red;
+  font-size: 1.5rem;
+}
+
+#watchlist-btn,
+#portfolio-btn,
+#view-history-btn,
+#delete-btn,
+#close,
+i.fa.fa-eye,
+.watchlist-name-td a,
+.portfolio-stock-detail-td a,
+.home-btn,
+.watchlist-nav-btn,
+.portfolio-nav-btn,
+.cross-cancel-history,
+.delete-btn-confirm,
+.close-alert-btn-modal,
+.cancel-btn-modal,
+.cross-cancel-history:hover {
+  cursor: pointer;
+}
+
 .width-90 {
   width: 90%;
 }
@@ -147,11 +176,13 @@ h1 {
 .stock-price-green {
   margin-top: 0;
   color: rgb(10, 158, 10);
+  margin-bottom: 0;
 }
 
 .stock-price-red {
   margin-top: 0;
   color: rgb(206, 62, 62);
+  margin-bottom: 0;
 }
 
 .portfolio-price-green {
@@ -172,6 +203,7 @@ h1 {
 
 #stock-current-price-2 {
   margin-left: 1.5rem;
+  margin-bottom: 0;
 }
 
 .button-space {
@@ -228,12 +260,6 @@ h1 {
   border-radius: 4px;
   color: white;
   font-size: 1rem;
-}
-
-.home-btn,
-.watchlist-nav-btn,
-.portfolio-nav-btn:hover {
-  cursor: pointer;
 }
 
 .backgroud-color {
@@ -325,14 +351,6 @@ h1 {
   padding-left: 0.2rem;
 }
 
-.watchlist-name-td a:hover {
-  cursor: pointer;
-}
-
-.portfolio-stock-detail-td a:hover {
-  cursor: pointer;
-}
-
 .cancelation-page,
 .stock-already-alert {
   height: 100vh;
@@ -372,11 +390,6 @@ h1 {
   border: none;
   margin: auto;
   text-align: right;
-}
-
-.cross-cancel-history {
-  color: red;
-  font-size: 1.5rem;
 }
 
 .margin-top-20px {
@@ -434,4 +447,29 @@ h1 {
 
 input {
   padding-left: 0.8rem;
+}
+
+.loading-full-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 4rem;
+  bottom: 0;
+  background: white;
+}
+
+.loading-full-pagee img {
+  width: 11rem;
+}
+
+.graph-height-div {
+  height: 520px;
+}
+
+.no-margin {
+  margin: 0;
+  font-family: 'Yaldevi', sans-serif;
 }
