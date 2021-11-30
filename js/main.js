@@ -206,6 +206,9 @@ function generateWatchlist() {
   for (var j = 0; j < $trNodes.length; j++) {
     $trNodes[j].remove();
   }
+  if (!data.watchlistEntries[0]) {
+    // var $newtrNodes = document.querySelectorAll('tr');
+  }
   for (var i = 0; i < data.watchlistEntries.length; i++) {
     watchListgenerate(data.watchlistEntries[i]);
   }

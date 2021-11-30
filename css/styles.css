@@ -89,7 +89,7 @@ li {
   margin-top: 1.7rem;
   height: 3rem;
   float: left;
-  width: 7%;
+  width: 5%;
   min-width: 40px;
   padding: 10px;
   background: #40916c;
@@ -472,4 +472,8 @@ input {
 .no-margin {
   margin: 0;
   font-family: 'Yaldevi', sans-serif;
+}
+
+.text-right {
+  text-align: right;
 }
