@@ -281,8 +281,20 @@ function seachStockAPI(keyword) {
 
 function generatePortfoliolist() {
   var $trNodes = document.querySelectorAll('tr');
+  var $emptyPortFolioMsgDiv = document.querySelector('#empty-portfolio-msg-div');
+  var $portfolioBoxDiv = document.querySelector('#portfolio-box-div');
+
+  $emptyPortFolioMsgDiv.setAttribute('class', 'row align-content-center hidden');
+  $portfolioBoxDiv.setAttribute('class', 'portfolio-box hidden');
+
   for (var j = 0; j < $trNodes.length; j++) {
     $trNodes[j].remove();
+  }
+  if (!data.portfolioEntries[0]) {
+    $emptyPortFolioMsgDiv.setAttribute('class', 'row align-content-center');
+  } else {
+    $portfolioBoxDiv.setAttribute('class', 'portfolio-box');
+
   }
   for (var i = 0; i < data.portfolioEntries.length; i++) {
     portfolioCurrentStock = data.portfolioEntries[i].stockName;
