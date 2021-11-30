@@ -203,11 +203,14 @@ function seachStock(event) {
 }
 function generateWatchlist() {
   var $trNodes = document.querySelectorAll('tr');
+  var $emptyMsgDiv = document.querySelector('#empty-msg-div');
+  $emptyMsgDiv.setAttribute('class', 'row align-content-center hidden');
+
   for (var j = 0; j < $trNodes.length; j++) {
     $trNodes[j].remove();
   }
   if (!data.watchlistEntries[0]) {
-    // var $newtrNodes = document.querySelectorAll('tr');
+    $emptyMsgDiv.setAttribute('class', 'row align-content-center');
   }
   for (var i = 0; i < data.watchlistEntries.length; i++) {
     watchListgenerate(data.watchlistEntries[i]);
