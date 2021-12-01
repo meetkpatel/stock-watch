@@ -8,7 +8,7 @@ This application is developed to offer stocks invenstors keep track of current s
 
 
 ## Live Demo
-Try the application live at [https://meetkpatel.github.io/stock-watch/]
+Try the application live at https://meetkpatel.github.io/stock-watch/
 
 ## Technologies:
 - JavaScript ES6
