@@ -55,7 +55,7 @@ User can add stocks to portfolio
 
     ```shell
     git@github.com:meetkpatel/stock-watch.git
-    cd whos-that-pokemon
+    cd stock-watch
     ```
 
 2. Once the repository is cloned onto your local machine, please open index.html to view the application. 
