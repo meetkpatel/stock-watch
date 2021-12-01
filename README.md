@@ -1,6 +1,6 @@
 # Stock Watch
 
-A AJAX project to help stock investors who want to get data on current stock valuations and track their favorite stocks".
+A AJAX project to help stock investors who want to get data on current stock valuations and track their favorite stocks.
 
 # purpose
 
