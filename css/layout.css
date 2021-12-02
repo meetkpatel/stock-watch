@@ -18,6 +18,11 @@
   width: 100%;
 }
 
+.column-one-third,
+.column-two-third {
+  width: 100%;
+}
+
 .portfolio-box {
   width: 20rem;
   min-height: 13rem;
@@ -26,9 +31,15 @@
   margin-bottom: 2rem;
 }
 
+.no-data {
+  margin-top: 1px;
+  width: 25rem;
+  height: 20rem;
+}
+
 @media screen and (min-width: 768px) {
   .container {
-    max-width: 900px;
+    max-width: 1280px;
   }
 
   .column-full,
@@ -38,6 +49,20 @@
 
   .column-half {
     width: 50%;
+  }
+
+  .column-one-third {
+    width: 25%;
+  }
+
+  .no-data {
+    margin-top: 1px;
+    width: 40rem;
+    height: 30rem;
+  }
+
+  .column-two-third {
+    width: 75%;
   }
 
   .portfolio-box {

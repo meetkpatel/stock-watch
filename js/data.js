@@ -5,7 +5,6 @@ var data = {
   portfolioEntries: [],
   currentStock: null
 };
-// console.log(data);
 var previousData = localStorage.getItem('ajax-project');
 if (previousData !== null) {
   data = JSON.parse(previousData);
