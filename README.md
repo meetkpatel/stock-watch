@@ -6,7 +6,6 @@ A AJAX project to help stock investors who want to get data on current stock val
 
 This application is developed to offer stocks invenstors keep track of current stocks valuations, create there favorite stocks watchlist, and keep track of there invested stocks profit and loss statement.
 
-
 ## Live Demo
 Try the application live at https://meetkpatel.github.io/stock-watch/
 
